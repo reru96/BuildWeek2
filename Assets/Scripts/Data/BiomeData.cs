@@ -4,15 +4,18 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BiomeData", menuName = "ScriptableObjects/BiomeData", order = 2)]
 
-public class SO_BiomeData : ScriptableObject
+public class BiomeData : ScriptableObject
 {
     public BIOMETIPE biomeType;
 
 
-    public List<SO_TileData> aviabletileDatas;
+    public List<TileData> aviabletileDatas;
 
-    public List<GameObject> enemy
-    public List<GameObject> obstacles;
+    public List<EnemyData> enemies;
+    public List<ObstacleData> obstacles;
+    public List<CollectableData> collectables;
+    //public List<ChunkData> chunks;
+
 
 
     public Material tileMaterial;

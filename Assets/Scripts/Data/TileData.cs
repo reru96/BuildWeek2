@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TileData", menuName = "ScriptableObjects/TileData", order = 1)]
-public class SO_TileData : ScriptableObject
+public class TileData : ScriptableObject
 {
     public TILETIPE tileType;
     public GameObject tilePrefab;

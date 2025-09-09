@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1306801df63313b4da3c9cbe6b970b78, type: 3}
+  m_Name: Test4Chunk
+  m_EditorClassIdentifier: 
+  chunkPrefab: {fileID: 4519614023201495059, guid: 9a533eade00a59f4e9ffe832a390d6f3,
+    type: 3}
+  lengthInTiles: 4
+  weight: 1

@@ -6,8 +6,7 @@ public enum TILETIPE
 {
     HOLE,
     FLOOR,
-    OBSTACLE,
-    ENEMY,
+  
 }
 
 public enum BIOMETIPE

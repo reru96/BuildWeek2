@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/ScenaEdo TestRenato.unity.meta
 guid: 034d8f84165a16041853542393194ff0
+========
+guid: 664e516c4331ff74ea56ae1207119216
+>>>>>>>> b5b67be (Download modelli):Assets/Models/DownloadedMapAssetsRocco/DownloadedAssetsRocco/KayKitCharacterAnimations/Animations/gltf/KayKit_AnimatedCharacter_v1.2.glb.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

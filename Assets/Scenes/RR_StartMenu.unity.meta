@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/RR_StartMenu.unity.meta
 guid: c559a917ea670094b87ff731e9519d58
+========
+guid: 7de519fab2e07b24d97ae96087ce3177
+>>>>>>>> b5b67be (Download modelli):Assets/Scenes/ScenaRoccoProvvisoria.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

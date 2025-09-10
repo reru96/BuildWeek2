@@ -5,6 +5,8 @@ using UnityEngine;
 public class LVLBuilder : MonoBehaviour
 {
     [SerializeField] private TileContentSpawner contentSpawner;
+    [SerializeField] private BackgroundBuilder backgroundBuilder;
+
 
     [Header("Runner Settings")]
     [SerializeField] private Transform player;
@@ -36,6 +38,8 @@ public class LVLBuilder : MonoBehaviour
     [SerializeField] private bool showDebugInfo = true;
 
     private TILETIPE[] lastLaneTypes; // Tiene traccia dell'ultimo tipo di corsia generata per ogni corsia
+    private LVLParameters levelParams;// Struttura per passare i parametri del livello ad altri componenti
+
 
     private Queue<TileSegment> activeSegments = new(); // Coda per gestire i segmenti attivi
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
@@ -59,6 +63,15 @@ public class LVLBuilder : MonoBehaviour
             Debug.LogError("No biomes assigned.");
             return;
         }
+
+        levelParams = new LVLParameters
+        {
+            tileLength = tileLength,
+            numberOfLanes = numberOfLanes,
+            laneWidth = laneWidth
+        };
+
+
         foreach (var biome in availableBiomes) /// Prewarm delle pool per tutti i prefab usati nei biomi DA SISTEMARE E INTEGRARE CON IL CAMBIAMENTO DINAMICO DEI BIOMI
         {
             foreach (var tile in biome.aviabletileDatas) // in pratica carico in memoria tutti i prefab che potrebbero servire per ogni bioma
@@ -72,7 +85,7 @@ public class LVLBuilder : MonoBehaviour
 
             foreach (var collectable in biome.collectables)
                 PoolManager.Instance.Prewarm(collectable.prefab, 5, transform);
-        
+
         }
 
 
@@ -87,6 +100,8 @@ public class LVLBuilder : MonoBehaviour
 
         for (int i = 0; i < safeStartTiles; i++)
             GenerateTileSegment(i * tileLength);
+
+        backgroundBuilder?.Initialize(levelParams);
 
         ApplyBiomeEnvironment();
     }
@@ -103,13 +118,19 @@ public class LVLBuilder : MonoBehaviour
             {
                 GenerateTileSegment(lastGeneratedZ);
             }
+
         }
+
+
     }
 
     void CleanupBehind()
     {
         while (activeSegments.Count > 0 && activeSegments.Peek().ZPosition < player.position.z - despawnDistance) // mentre ci sono segmenti attivi e la z del segmento più vecchio è minore della z del giocatore - distanza di despawn leva tutto
             DestroySegment(activeSegments.Dequeue());
+
+        backgroundBuilder?.DespawnOldBackgrounds(player.position.z - despawnDistance);
+
     }
 
     void DestroySegment(TileSegment segment)
@@ -143,15 +164,22 @@ public class LVLBuilder : MonoBehaviour
 
         if (otherBiomes.Count == 0) return;
 
+        BiomeData oldBiome = currentBiome; // quello che stiamo lasciando
         currentBiome = otherBiomes[Random.Range(0, otherBiomes.Count)];
         nextBiomeChangeZ += biomeChangeDistance;
 
-
-
         ApplyBiomeEnvironment();
 
-        if (showDebugInfo)
-            PrintDebugInfo();
+        // Spawn transizione di uscita vecchio bioma
+        backgroundBuilder?.SpawnTransition(oldBiome.biomeType, new Vector3(0, 0, lastGeneratedZ), false);
+
+        // Spawn transizione di entrata nuovo bioma
+        backgroundBuilder?.SpawnTransition(currentBiome.biomeType, new Vector3(0, 0, lastGeneratedZ), true);
+
+        backgroundBuilder?.ResetBackgroundZ(lastGeneratedZ);
+
+
+        if (showDebugInfo) PrintDebugInfo();
     }
 
     void ApplyBiomeEnvironment()
@@ -186,6 +214,18 @@ public class LVLBuilder : MonoBehaviour
     {
         ChunkData chunk = SelectWeightedChunk(availableChunks);
 
+        if (chunk.overridBeckGround != null)
+        {
+            GameObject bg = PoolManager.Instance.Spawn(
+                chunk.overridBeckGround.prefab,
+                new Vector3(0, 0, zPos),
+                Quaternion.identity,
+                transform
+            );
+
+        }
+
+
         if (chunk == null || chunk.chunkPrefab == null)
         {
             Debug.LogWarning("No valid chunk found");
@@ -193,9 +233,9 @@ public class LVLBuilder : MonoBehaviour
         }
 
         Vector3 spawnPos = new(0, 0, zPos);
-        GameObject chunkObj = PoolManager.Instance.Spawn(chunk.chunkPrefab, spawnPos, Quaternion.identity, transform); 
+        GameObject chunkObj = PoolManager.Instance.Spawn(chunk.chunkPrefab, spawnPos, Quaternion.identity, transform);
 
-        ApplyBiomeMaterial(chunkObj); 
+        ApplyBiomeMaterial(chunkObj);
 
         activeSegments.Enqueue(new TileSegment(zPos, 1) // TileSegment è una struct che contiene le info di ogni segmento generato in questo caso il chunk è considerato come un singolo segmento con lunghezza 1
         {
@@ -349,9 +389,11 @@ public class LVLBuilder : MonoBehaviour
                         hasSpawnedContentThisRow = true;
                     }
                 }
+
+
             }
         }
-
+        backgroundBuilder?.SpawnBackgroundAt(currentBiome.biomeType, zPosition);
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
         segmentCounter++;

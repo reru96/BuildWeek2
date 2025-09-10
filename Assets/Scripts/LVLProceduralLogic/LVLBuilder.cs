@@ -44,6 +44,9 @@ public class LVLBuilder : MonoBehaviour
     private Queue<TileSegment> activeSegments = new(); // Coda per gestire i segmenti attivi
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
+    private bool skipNextBGSpawn = false;
+    private bool suppressNextBG = false;
+
 
     void Start() => Initialize();
 
@@ -170,16 +173,40 @@ public class LVLBuilder : MonoBehaviour
 
         ApplyBiomeEnvironment();
 
-        // Spawn transizione di uscita vecchio bioma
-        backgroundBuilder?.SpawnTransition(oldBiome.biomeType, new Vector3(0, 0, lastGeneratedZ), false);
 
-        // Spawn transizione di entrata nuovo bioma
-        backgroundBuilder?.SpawnTransition(currentBiome.biomeType, new Vector3(0, 0, lastGeneratedZ), true);
+        // Exit del vecchio bioma → ultima tile
+        if (oldBiome.transitionEnd != null)
+        {
+            Vector3 exitPos = new Vector3(0, 0, lastGeneratedZ - tileLength);
+            backgroundBuilder?.SpawnBiomeTransition(oldBiome.transitionEnd, exitPos);
 
+            suppressNextBG = true;
+        }
+
+        // Entry del nuovo bioma → prima tile
+        if (currentBiome.transitionStart != null)
+        {
+            Vector3 entryPos = new Vector3(0, 0, lastGeneratedZ);
+            backgroundBuilder?.SpawnBiomeTransition(currentBiome.transitionStart, entryPos);
+        }
+
+        skipNextBGSpawn = true;
         backgroundBuilder?.ResetBackgroundZ(lastGeneratedZ);
 
-
         if (showDebugInfo) PrintDebugInfo();
+    }
+
+    private bool IsBiomeBoundaryTile(float zPos)
+    {
+        // Prima tile del bioma
+        if (Mathf.Approximately(zPos, nextBiomeChangeZ - biomeChangeDistance))
+            return true;
+
+        // Ultima tile del bioma (quella prima dell'exit)
+        if (Mathf.Approximately(zPos, nextBiomeChangeZ - tileLength))
+            return true;
+
+        return false;
     }
 
     void ApplyBiomeEnvironment()
@@ -306,12 +333,15 @@ public class LVLBuilder : MonoBehaviour
         TileSegment segment = new(zPosition, numberOfLanes);
         segment.Biome = currentBiome;
 
+        bool isBoundary = IsBiomeBoundaryTile(zPosition);
+
+
         List<int> viableLanes = new();
         List<int> safeLanesForContent = new();
 
         for (int lane = 0; lane < numberOfLanes; lane++)
         {
-            bool canBeHole = segmentCounter >= safeStartTiles && lastLaneTypes[lane] != TILETIPE.HOLE;
+            bool canBeHole = !isBoundary && segmentCounter >= safeStartTiles && lastLaneTypes[lane] != TILETIPE.HOLE;
             if (canBeHole && Random.value < 0.3f) continue;
 
             viableLanes.Add(lane);
@@ -360,7 +390,7 @@ public class LVLBuilder : MonoBehaviour
                 ApplyBiomeMaterial(tileObj);
                 segment.LaneObjects[lane] = tileObj;
 
-                if (!hasSpawnedContentThisRow && safeLanesForContent.Contains(lane))
+                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane))
                 {
                     GameObject content = null;
                     GameObject contentPrefab = null;
@@ -393,7 +423,18 @@ public class LVLBuilder : MonoBehaviour
 
             }
         }
-        backgroundBuilder?.SpawnBackgroundAt(currentBiome.biomeType, zPosition);
+
+
+
+        if (!isBoundary && !skipNextBGSpawn) // controllo suppressNextBG
+        {
+            backgroundBuilder?.SpawnBackgroundAt(currentBiome, zPosition);
+        }
+        else
+        {
+            if (skipNextBGSpawn) skipNextBGSpawn = false;  
+            if (suppressNextBG) suppressNextBG = false;     // resettiamo il flag
+        }
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
         segmentCounter++;

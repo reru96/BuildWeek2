@@ -21,6 +21,10 @@ MonoBehaviour:
   obstacles:
   - {fileID: 11400000, guid: 3d42941094bd65a449ae91bdcc9c5992, type: 2}
   collectables: []
+  backgroundTiles:
+  - {fileID: 11400000, guid: f481a061301012346afb5cff16c0ae0a, type: 2}
+  transitionStart: {fileID: 11400000, guid: 9599d59408579e1449c419d383a79825, type: 2}
+  transitionEnd: {fileID: 11400000, guid: 16d825fd9d5da494abd6627df87317e1, type: 2}
   tileMaterial: {fileID: 2100000, guid: 8bf92490ba55e9f438d24d6601d46304, type: 2}
   biomeMusic: {fileID: 0}
   fogColor: {r: 1, g: 1, b: 1, a: 0}

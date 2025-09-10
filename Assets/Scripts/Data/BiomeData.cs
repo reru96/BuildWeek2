@@ -16,7 +16,9 @@ public class BiomeData : ScriptableObject
     public List<CollectableData> collectables;
     //public List<ChunkData> chunks;
 
-
+    public List<BGTileData> backgroundTiles;
+    public BGTileData transitionStart;
+    public BGTileData transitionEnd;
 
     public Material tileMaterial;
     public AudioClip biomeMusic;

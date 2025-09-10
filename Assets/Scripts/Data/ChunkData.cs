@@ -4,6 +4,12 @@ using UnityEngine;
 public class ChunkData : ScriptableObject
 {
     public GameObject chunkPrefab;
-    public int lengthInTiles;
-    public int weight;
+    public BGTileData overridBeckGround;
+    public int lengthInTiles = 5;
+    public int weight = 1;
+
+    public float GetWorldLength(LVLParameters levelParams)
+    {
+        return lengthInTiles * levelParams.tileLength;
+    }
 }

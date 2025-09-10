@@ -32,7 +32,7 @@ public class TileContentSpawner : MonoBehaviour
         _lastSelectedObstacle = obstacle?.prefab;
 
         return obstacle != null
-            ? PoolManager.Instance.Spawn(obstacle.prefab, position + Vector3.up * 0.5f, Quaternion.identity, parent)
+            ? PoolManager.Instance.Spawn(obstacle.prefab, position + Vector3.up, Quaternion.identity, parent)
             : null;
     }
 

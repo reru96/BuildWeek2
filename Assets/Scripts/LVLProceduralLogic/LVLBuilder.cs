@@ -44,6 +44,7 @@ public class LVLBuilder : MonoBehaviour
     private Queue<TileSegment> activeSegments = new(); // Coda per gestire i segmenti attivi
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
+    private int difficultyLevel = 0;
     private bool skipNextBGSpawn = false;
     private bool suppressNextBG = false;
 

@@ -9,6 +9,8 @@ public class CollectableData : ScriptableObject
     public GameObject prefab;
     public int weight;
     public int cost;
+    public int minDifficultyLevel;
+    public int maxDifficultyLevel;
     public Sprite icon;
 
     // da non spuntare in Inspector

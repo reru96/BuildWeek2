@@ -12,10 +12,11 @@ public class TileContentSpawner : MonoBehaviour
     public GameObject GetLastSelectedObstaclePrefab() => _lastSelectedObstacle;
     public GameObject GetLastSelectedPowerUpPrefab() => _lastSelectedPowerUp;
 
-    public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        if (biome.enemies == null || biome.enemies.Count == 0) return null;
-
+        var filterer = biome.enemies
+            .Where(e => e.minDifficultyLevel <= difficulty && difficulty <= e.maxDifficultyLevel)
+            .ToList();
         var enemy = GetWeightedRandom(biome.enemies);
         _lastSelectedEnemy = enemy?.prefab;
 
@@ -24,9 +25,12 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    public GameObject SpawnObstacle(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnObstacle(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        if (biome.obstacles == null || biome.obstacles.Count == 0) return null;
+
+        var filterer = biome.obstacles
+            .Where( e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
+            .ToList();
 
         var obstacle = GetWeightedRandom(biome.obstacles);
         _lastSelectedObstacle = obstacle?.prefab;
@@ -36,9 +40,11 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent, int difficulty  )
     {
-        if (biome.collectables == null || biome.collectables.Count == 0) return null;
+        var filterer = biome.collectables
+            .Where(e => e.minDifficultyLevel <= difficulty && difficulty <= e.maxDifficultyLevel)
+            .ToList();
 
         var powerup = GetWeightedRandom(biome.collectables);
         _lastSelectedPowerUp = powerup?.prefab;

@@ -399,17 +399,17 @@ public class LVLBuilder : MonoBehaviour
 
                     if (rand < powerupChance)
                     {
-                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedPowerUpPrefab();
                     }
                     else if (rand < powerupChance + enemyChance)
                     {
-                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedEnemyPrefab();
                     }
                     else if (rand < powerupChance + enemyChance + obstacleChance)
                     {
-                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedObstaclePrefab();
                     }
 

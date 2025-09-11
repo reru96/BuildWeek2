@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class CollectableData : ScriptableObject
 {
+    public string namePowerUp;
     public GameObject prefab;
     public int weight;
+    public int cost;
+    public Sprite icon;
+
+    // da non spuntare in Inspector
+    public bool shopped;
 }

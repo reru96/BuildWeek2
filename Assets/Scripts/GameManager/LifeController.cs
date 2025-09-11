@@ -6,25 +6,86 @@ using UnityEngine.SceneManagement;
 
 public class LifeController : MonoBehaviour
 {
-
-    [SerializeField] private int maxHp;
+    [Header("Health Settings")]
+    [SerializeField] private int maxHp = 100;
     [SerializeField] private int currentHp;
     [SerializeField] private bool fullHpOnAwake = true;
+
+    [Header("Shield Settings")]
+    [SerializeField] private int maxShield = 0;
+    [SerializeField] private int currentShield;
+
+    [Header("Death Settings")]
     [SerializeField] private DeathAction death = DeathAction.Destroy;
-    
-    public int GetMaxHp() => maxHp;
-    public int GetHp() => currentHp;
 
     public enum DeathAction { None, Destroy, Disable, Die, SceneReload }
 
-    public void HandleDeath()
+    public int GetMaxHp() => maxHp;
+    public int GetHp() => currentHp;
+    public int GetShield() => currentShield;
+    public int GetMaxShield() => maxShield;
+
+    private void Awake()
     {
-        switch(death)
+        if (fullHpOnAwake)
+        {
+            currentHp = maxHp;
+            currentShield = maxShield;
+        }
+    }
+
+
+    public void TakeDamage(int amount)
+    {
+        if (amount <= 0) return;
+
+        if (currentShield > 0)
+        {
+            int shieldDamage = Mathf.Min(currentShield, amount);
+            currentShield -= shieldDamage;
+            amount -= shieldDamage;
+        }
+
+    
+        if (amount > 0)
+        {
+            SetHp(currentHp - amount);
+        }
+    }
+
+  
+    public void AddHp(int amount)
+    {
+        if (amount <= 0) return;
+        currentHp = Mathf.Clamp(currentHp + amount, 0, maxHp);
+    }
+
+    public void RestoreShield(int amount)
+    {
+        if (amount <= 0) return;
+        currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+    }
+
+ 
+    public void SetHp(int hp)
+    {
+        int oldHp = currentHp;
+        currentHp = Mathf.Clamp(hp, 0, maxHp);
+
+        if (oldHp > 0 && currentHp == 0)
+        {
+            HandleDeath();
+        }
+    }
+
+    private void HandleDeath()
+    {
+        switch (death)
         {
             case DeathAction.None:
                 break;
             case DeathAction.Destroy:
-                Destroy(gameObject); 
+                Destroy(gameObject);
                 break;
             case DeathAction.Die:
                 RespawnManager.Instance.PlayerDied();
@@ -37,25 +98,5 @@ public class LifeController : MonoBehaviour
                 break;
         }
     }
-
-    private void Awake()
-    {
-        if(fullHpOnAwake)
-        {
-            SetHp(maxHp);
-        }
-    }
-    public void SetHp(int hp)
-    {
-        int oldHp = currentHp;
-        currentHp = Mathf.Clamp(hp, 0, maxHp);
-
-        if (oldHp > 0 && currentHp == 0)
-        {
-            HandleDeath();
-        }
-    }
-
-    public void AddHp (int amount) => SetHp(currentHp + amount);
-
 }
+

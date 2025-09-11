@@ -16,5 +16,5 @@ MonoBehaviour:
   prefab: {fileID: 0}
   weight: 1
   cost: 2
-  icon: {fileID: -379527305, guid: 40660301ee1c9cd4d9944bd792eee618, type: 3}
+  icon: {fileID: 21300000, guid: e3df1844d77e43b4f9c19b007bc2047d, type: 3}
   shopped: 0

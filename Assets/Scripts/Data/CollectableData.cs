@@ -13,4 +13,9 @@ public class CollectableData : ScriptableObject
 
     // da non spuntare in Inspector
     public bool shopped;
+
+    public virtual void Use(GameObject obj)
+    {
+        
+    }
 }

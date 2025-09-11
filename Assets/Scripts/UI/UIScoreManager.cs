@@ -43,12 +43,12 @@ public class UIScoreManager : MonoBehaviour
      
         if (scoreText != null)
         {
-            scoreText.text = $"Score: {score}\nMultiplier: x{multiplier:F2}";
+            scoreText.text = $": {score}\n: x{multiplier:F2}";
         }
 
         if (distanceText != null)
         {
-            distanceText.text = $"Distance: {distanceTravelled}m";
+            distanceText.text = $": {distanceTravelled}m";
         }
     }
 

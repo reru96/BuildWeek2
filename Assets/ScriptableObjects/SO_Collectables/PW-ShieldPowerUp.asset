@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15bacf7e17ca3a2419e2d89d4abfd8ab, type: 3}
-  m_Name: PW-ShieldSO
+  m_Script: {fileID: 11500000, guid: 60d408a03565f7d47b7873ba69168829, type: 3}
+  m_Name: PW-ShieldPowerUp
   m_EditorClassIdentifier: 
   namePowerUp: Shield
   prefab: {fileID: 0}
   weight: 1
-  cost: 2
-  icon: {fileID: -226690542, guid: 40660301ee1c9cd4d9944bd792eee618, type: 3}
+  cost: 0
+  icon: {fileID: 21300000, guid: 422bcbcffa7fbd34cb66677a8e7bb2a5, type: 3}
   shopped: 0
+  amount: 5

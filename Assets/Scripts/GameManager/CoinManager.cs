@@ -38,6 +38,6 @@ public class CoinManager : Singleton<CoinManager>
     private void UpdateUI()
     {
         if (coinText != null)
-            coinText.text = "Coins: " + coins;
+            coinText.text = ": " + coins;
     }
 }

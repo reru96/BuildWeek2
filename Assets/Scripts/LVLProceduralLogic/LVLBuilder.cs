@@ -44,6 +44,10 @@ public class LVLBuilder : MonoBehaviour
     private Queue<TileSegment> activeSegments = new(); // Coda per gestire i segmenti attivi
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
+    private int difficultyLevel = 0;
+
+
+
     private bool skipNextBGSpawn = false;
     private bool suppressNextBG = false;
 
@@ -172,6 +176,8 @@ public class LVLBuilder : MonoBehaviour
         nextBiomeChangeZ += biomeChangeDistance;
 
         ApplyBiomeEnvironment();
+        difficultyLevel++;
+
 
 
         // Exit del vecchio bioma → ultima tile
@@ -364,7 +370,7 @@ public class LVLBuilder : MonoBehaviour
         int selectedLane = ChooseLaneAccordingToRules(viableLanes);
 
 
-
+        bool isSafeTile = segmentCounter < safeStartTiles;
         bool hasSpawnedContentThisRow = false;
 
         for (int lane = 0; lane < numberOfLanes; lane++)
@@ -390,7 +396,7 @@ public class LVLBuilder : MonoBehaviour
                 ApplyBiomeMaterial(tileObj);
                 segment.LaneObjects[lane] = tileObj;
 
-                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane))
+                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane) && !isSafeTile)
                 {
                     GameObject content = null;
                     GameObject contentPrefab = null;

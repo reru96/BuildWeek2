@@ -8,4 +8,10 @@ public class ObstacleData : ScriptableObject
 {
     public GameObject prefab;
     public int weight;
+
+    public int maxDifficult;
+    public int minDifficult;
+
+    public GameObject Prefab => prefab;
+    public int Weight => weight;
 }

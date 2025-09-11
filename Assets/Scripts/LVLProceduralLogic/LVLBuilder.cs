@@ -45,6 +45,9 @@ public class LVLBuilder : MonoBehaviour
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
     private int difficultyLevel = 0;
+
+
+
     private bool skipNextBGSpawn = false;
     private bool suppressNextBG = false;
 
@@ -173,6 +176,8 @@ public class LVLBuilder : MonoBehaviour
         nextBiomeChangeZ += biomeChangeDistance;
 
         ApplyBiomeEnvironment();
+        difficultyLevel++;
+
 
 
         // Exit del vecchio bioma → ultima tile
@@ -365,7 +370,7 @@ public class LVLBuilder : MonoBehaviour
         int selectedLane = ChooseLaneAccordingToRules(viableLanes);
 
 
-
+        bool isSafeTile = segmentCounter < safeStartTiles;
         bool hasSpawnedContentThisRow = false;
 
         for (int lane = 0; lane < numberOfLanes; lane++)
@@ -391,7 +396,7 @@ public class LVLBuilder : MonoBehaviour
                 ApplyBiomeMaterial(tileObj);
                 segment.LaneObjects[lane] = tileObj;
 
-                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane))
+                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane) && !isSafeTile)
                 {
                     GameObject content = null;
                     GameObject contentPrefab = null;
@@ -400,17 +405,17 @@ public class LVLBuilder : MonoBehaviour
 
                     if (rand < powerupChance)
                     {
-                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform, difficultyLevel);
+                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform);
                         contentPrefab = contentSpawner.GetLastSelectedPowerUpPrefab();
                     }
                     else if (rand < powerupChance + enemyChance)
                     {
-                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform, difficultyLevel);
+                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform);
                         contentPrefab = contentSpawner.GetLastSelectedEnemyPrefab();
                     }
                     else if (rand < powerupChance + enemyChance + obstacleChance)
                     {
-                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform, difficultyLevel);
+                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform);
                         contentPrefab = contentSpawner.GetLastSelectedObstaclePrefab();
                     }
 

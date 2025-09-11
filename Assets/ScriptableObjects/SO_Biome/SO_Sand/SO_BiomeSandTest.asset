@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9313445089efb408229f43424fa553, type: 3}
+  m_Name: SO_BiomeSandTest
+  m_EditorClassIdentifier: 
+  biomeType: 1
+  aviabletileDatas:
+  - {fileID: 11400000, guid: 2185971dcc7d3a04b9f85c2476235464, type: 2}
+  - {fileID: 11400000, guid: 3c7f75fdeaa01cb43b6706502fd2e549, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: e8bb53741084b3e488858f089eb6d648, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: 3d42941094bd65a449ae91bdcc9c5992, type: 2}
+  collectables: []
+  backgroundTiles:
+  - {fileID: 11400000, guid: 80736d96550e6f84bbfeeaec9dc82bd7, type: 2}
+  transitionStart: {fileID: 11400000, guid: 9599d59408579e1449c419d383a79825, type: 2}
+  transitionEnd: {fileID: 11400000, guid: 16d825fd9d5da494abd6627df87317e1, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 552777a22b443e9499d1d38de101e57a, type: 2}
+  biomeMusic: {fileID: 0}
+  fogColor: {r: 0.8773585, g: 0.30210927, b: 0.30210927, a: 0}
+  ambientLightColor: {r: 1, g: 0.47273552, b: 0.25943398, a: 0}

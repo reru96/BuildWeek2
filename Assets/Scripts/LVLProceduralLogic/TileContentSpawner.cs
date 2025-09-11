@@ -14,10 +14,11 @@ public class TileContentSpawner : MonoBehaviour
 
     public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        var filterer = biome.enemies
+        var filtered = biome.enemies
             .Where(e => e.minDifficultyLevel <= difficulty && difficulty <= e.maxDifficultyLevel)
             .ToList();
-        var enemy = GetWeightedRandom(biome.enemies);
+
+        var enemy = GetWeightedRandom(filtered);
         _lastSelectedEnemy = enemy?.prefab;
 
         return enemy != null
@@ -27,12 +28,11 @@ public class TileContentSpawner : MonoBehaviour
 
     public GameObject SpawnObstacle(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-
-        var filterer = biome.obstacles
-            .Where( e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
+        var filtered = biome.obstacles
+            .Where(e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
             .ToList();
 
-        var obstacle = GetWeightedRandom(biome.obstacles);
+        var obstacle = GetWeightedRandom(filtered);
         _lastSelectedObstacle = obstacle?.prefab;
 
         return obstacle != null
@@ -40,13 +40,13 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent, int difficulty  )
+    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        var filterer = biome.collectables
-            .Where(e => e.minDifficultyLevel <= difficulty && difficulty <= e.maxDifficultyLevel)
+        var filtered = biome.collectables
+            .Where(e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
             .ToList();
 
-        var powerup = GetWeightedRandom(biome.collectables);
+        var powerup = GetWeightedRandom(filtered);
         _lastSelectedPowerUp = powerup?.prefab;
 
         return powerup != null
@@ -54,9 +54,10 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    private T GetWeightedRandom<T>(List<T> items) where T : ScriptableObject
+
+    private T GetWeightedRandom<T>(List<T> spawnables) where T : ScriptableObject
     {
-        var weighted = items
+        var weighted = spawnables
             .Select(x => new { Item = x, Weight = GetWeight(x) })
             .ToList();
 

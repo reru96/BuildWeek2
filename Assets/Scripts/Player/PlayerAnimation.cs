@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
-    private PlayerController player;
+    private RenatoPlayerController player;
     private CharacterController controller;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        player = GetComponent<PlayerController>();
+        player = GetComponent<RenatoPlayerController>();
         controller = GetComponent<CharacterController>();
     }
 
@@ -19,7 +19,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (player == null) return;
 
-        animator.SetFloat("Speed", player.moveSpeed);
+        animator.SetFloat("Speed", player.ForwardSpeed);
 
       
         animator.SetBool("isJumping", !controller.isGrounded);

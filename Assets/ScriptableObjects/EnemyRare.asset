@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d831bb6bb5cde14f801c13c1012393b, type: 3}
   m_Name: EnemyRare
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 919132149155446097, guid: 3452143c17ca7264d9e6afee60551b95, type: 3}
   weight: 1
+  minDifficultyLevel: 0
+  maxDifficultyLevel: 30

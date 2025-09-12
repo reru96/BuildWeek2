@@ -92,6 +92,9 @@ public class LVLBuilder : MonoBehaviour
 
             foreach (var collectable in biome.collectables)
                 PoolManager.Instance.Prewarm(collectable.prefab, 5, transform);
+           
+            foreach (var coin in biome.coins)
+                PoolManager.Instance.Prewarm(coin.prefab, 5, transform);
 
         }
 
@@ -405,17 +408,17 @@ public class LVLBuilder : MonoBehaviour
 
                     if (rand < powerupChance)
                     {
-                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedPowerUpPrefab();
                     }
                     else if (rand < powerupChance + enemyChance)
                     {
-                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedEnemyPrefab();
                     }
                     else if (rand < powerupChance + enemyChance + obstacleChance)
                     {
-                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedObstaclePrefab();
                     }
 
@@ -431,25 +434,60 @@ public class LVLBuilder : MonoBehaviour
         }
 
 
+        if (!isBoundary && !isSafeTile && currentBiome.coins.Count > 0)
+        {
+          
+            List<int> coinLanes = viableLanes.ToList();
 
-        if (!isBoundary && !skipNextBGSpawn) // controllo suppressNextBG
+            
+            int guaranteedLane = coinLanes[Random.Range(0, coinLanes.Count)];
+            SpawnCoinAtLane(segment, guaranteedLane, zPosition);
+
+        
+            foreach (int lane in coinLanes)
+            {
+                if (lane == guaranteedLane) continue;
+                if (Random.value < 0.4f) 
+                {
+                    SpawnCoinAtLane(segment, lane, zPosition);
+                }
+            }
+        }
+
+
+
+        if (!isBoundary && !skipNextBGSpawn) 
         {
             backgroundBuilder?.SpawnBackgroundAt(currentBiome, zPosition);
         }
         else
         {
-            if (skipNextBGSpawn) skipNextBGSpawn = false;  
-            if (suppressNextBG) suppressNextBG = false;     // resettiamo il flag
+            if (skipNextBGSpawn) skipNextBGSpawn = false;
+            if (suppressNextBG) suppressNextBG = false;     
         }
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
         segmentCounter++;
     }
 
+    void SpawnCoinAtLane(TileSegment segment, int lane, float zPosition)
+    {
+        float x = -(numberOfLanes - 1) * laneWidth * 0.5f + lane * laneWidth;
+        Vector3 coinPos = new(x, 1f, zPosition + tileLength * 0.5f);
 
+        CoinData coinData = currentBiome.coins[Random.Range(0, currentBiome.coins.Count)];
+        if (coinData != null && coinData.prefab != null)
+        {
+            GameObject coin = PoolManager.Instance.Spawn(coinData.prefab, coinPos, Quaternion.identity, transform);
 
+           
+            CoinPickUp pickup = coin.GetComponent<CoinPickUp>();
+            if (pickup != null)
+                pickup.coinData = coinData;
 
-
+            segment.SpawnedContents.Add((coin, coinData.prefab));
+        }
+    }
 
     //DEBBUG PURPOSES ONLY
 
@@ -484,3 +522,4 @@ public class LVLBuilder : MonoBehaviour
     }
 
 }
+

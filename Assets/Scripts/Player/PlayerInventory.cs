@@ -39,7 +39,14 @@ public class PlayerInventory : MonoBehaviour
     private void OnSlotClicked(CollectableData item)
     {
         Debug.Log("Slot cliccato: " + item.namePowerUp);
-        
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            item.Use(player);
+        }
+        collectedItems.Remove(item);
+
     }
 
     public List<CollectableData> GetInventory() => collectedItems;

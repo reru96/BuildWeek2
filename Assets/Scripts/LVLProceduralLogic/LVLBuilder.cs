@@ -51,6 +51,9 @@ public class LVLBuilder : MonoBehaviour
     private bool skipNextBGSpawn = false;
     private bool suppressNextBG = false;
 
+    public int NumberOfLanes => numberOfLanes;
+    public float LaneWidth => laneWidth;
+
 
     void Start() => Initialize();
 

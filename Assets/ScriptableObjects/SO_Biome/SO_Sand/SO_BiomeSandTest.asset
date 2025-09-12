@@ -20,7 +20,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8bb53741084b3e488858f089eb6d648, type: 2}
   obstacles:
   - {fileID: 11400000, guid: 3d42941094bd65a449ae91bdcc9c5992, type: 2}
-  collectables: []
+  collectables:
+  - {fileID: 11400000, guid: 2b3a89e747953d54d8fbb0e440fbdb22, type: 2}
+  - {fileID: 11400000, guid: 433e206c2cf19304f9b241b401491db2, type: 2}
   coins:
   - {fileID: 11400000, guid: e1c54b087c3e3df46849c16926ae5500, type: 2}
   backgroundTiles:

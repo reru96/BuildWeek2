@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d408a03565f7d47b7873ba69168829, type: 3}
-  m_Name: PW-ShieldPowerUp
+  m_Script: {fileID: 11500000, guid: f3298a6b3032e274c873248a9741243a, type: 3}
+  m_Name: PW_RocketSO
   m_EditorClassIdentifier: 
-  namePowerUp: Shield
+  namePowerUp: Rocket
   prefab: {fileID: 0}
   weight: 1
   cost: 0
-  icon: {fileID: 21300000, guid: 422bcbcffa7fbd34cb66677a8e7bb2a5, type: 3}
+  minDifficultyLevel: 0
+  maxDifficultyLevel: 0
+  icon: {fileID: 21300000, guid: 4abb46f09605f7e4b97e5dd70d7e8136, type: 3}
   shopped: 0
-  amount: 5
+  rocketDistance: 1000

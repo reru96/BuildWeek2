@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketSO : MonoBehaviour
+[CreateAssetMenu(fileName = "ShieldPowerUp", menuName = "ScriptableObjects/PowerUpData/Rocket")]
+public class RocketSO : CollectableData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float rocketDistance = 1000f;
 
-    // Update is called once per frame
-    void Update()
+    public override void Use(GameObject obj)
     {
-        
+        if (obj == null) return;
+        Vector3 rocketVector = obj.transform.forward.normalized * rocketDistance + (Vector3.up * 2);
+        obj.transform.position += rocketVector;
     }
 }

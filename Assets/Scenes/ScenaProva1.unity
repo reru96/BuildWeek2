@@ -1151,7 +1151,7 @@ PrefabInstance:
     - target: {fileID: 2179594852529956309, guid: bed7f7893f6e6644da9f776d24958f8e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4061879520266444524, guid: bed7f7893f6e6644da9f776d24958f8e,
         type: 3}
@@ -1260,9 +1260,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4683483097472219415, guid: bed7f7893f6e6644da9f776d24958f8e,
         type: 3}
+      propertyPath: collectables.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea10f1b7233a00946ba4eece53d0b010,
+        type: 2}
+    - target: {fileID: 4683483097472219415, guid: bed7f7893f6e6644da9f776d24958f8e,
+        type: 3}
+      propertyPath: collectables.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 433e206c2cf19304f9b241b401491db2,
+        type: 2}
+    - target: {fileID: 4683483097472219415, guid: bed7f7893f6e6644da9f776d24958f8e,
+        type: 3}
       propertyPath: collectables.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 41455f2d0415b984a986eacf7112a878,
+      objectReference: {fileID: 11400000, guid: 2b3a89e747953d54d8fbb0e440fbdb22,
         type: 2}
     - target: {fileID: 5692235543055190361, guid: bed7f7893f6e6644da9f776d24958f8e,
         type: 3}

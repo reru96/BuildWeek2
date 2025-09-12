@@ -14,6 +14,7 @@ public class BiomeData : ScriptableObject
     public List<EnemyData> enemies;
     public List<ObstacleData> obstacles;
     public List<CollectableData> collectables;
+    public List<CoinData> coins;
     //public List<ChunkData> chunks;
 
     public List<BGTileData> backgroundTiles;

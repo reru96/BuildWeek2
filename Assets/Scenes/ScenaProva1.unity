@@ -896,7 +896,7 @@ MonoBehaviour:
   numberOfLanes: 3
   laneWidth: 5
   tileLength: 5
-  safeStartTiles: 10
+  safeStartTiles: 20
   generateDistance: 100
   despawnDistance: 50
   availableBiomes:
@@ -907,7 +907,7 @@ MonoBehaviour:
   obstacleChance: 0.2
   enemyChance: 0.15
   powerupChance: 0.1
-  tilesPerChunk: 20
+  tilesPerChunk: 21
   availableChunks:
   - {fileID: 11400000, guid: 672f41e1c99be0f4d8175a9ad3f6129f, type: 2}
   - {fileID: 11400000, guid: f516331b826be9841adc1901a0de3af2, type: 2}
@@ -1535,7 +1535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -68.765015}
+  m_AnchoredPosition: {x: 0, y: -68.76489}
   m_SizeDelta: {x: 89.903, y: 76.46997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582557941
@@ -2127,7 +2127,8 @@ PrefabInstance:
       propertyPath: inventoryContainer
       value: 
       objectReference: {fileID: 1473112984}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4521638483586000126, guid: 4789b266ca3fe814d95089f7aefac56b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

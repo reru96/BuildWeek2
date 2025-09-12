@@ -7,10 +7,12 @@ public class TileContentSpawner : MonoBehaviour
     private GameObject _lastSelectedEnemy;
     private GameObject _lastSelectedObstacle;
     private GameObject _lastSelectedPowerUp;
+    private GameObject _lastSelectedCoin;
 
     public GameObject GetLastSelectedEnemyPrefab() => _lastSelectedEnemy;
     public GameObject GetLastSelectedObstaclePrefab() => _lastSelectedObstacle;
     public GameObject GetLastSelectedPowerUpPrefab() => _lastSelectedPowerUp;
+    public GameObject GetLastSelectedCoinPrefab() => _lastSelectedCoin;
 
     public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
@@ -52,6 +54,30 @@ public class TileContentSpawner : MonoBehaviour
         return powerup != null
             ? PoolManager.Instance.Spawn(powerup.prefab, position + Vector3.up * 1.2f, Quaternion.identity, parent)
             : null;
+    }
+
+    public GameObject SpawnCoin(BiomeData biome, Vector3 position, Transform parent, int difficulty)
+    {
+      
+        var filtered = biome.coins
+            .Where(c => c.minDifficult <= difficulty && difficulty <= c.maxDifficult) 
+            .ToList();
+
+        if (filtered.Count == 0) return null;
+
+     
+        CoinData coinData = filtered[Random.Range(0, filtered.Count)];
+        _lastSelectedCoin = coinData.prefab;
+
+
+        GameObject coin = PoolManager.Instance.Spawn(coinData.prefab, position + Vector3.up * 1f, Quaternion.identity, parent);
+
+       
+        CoinPickUp pickup = coin.GetComponent<CoinPickUp>();
+        if (pickup != null)
+            pickup.coinData = coinData;
+
+        return coin;
     }
 
 

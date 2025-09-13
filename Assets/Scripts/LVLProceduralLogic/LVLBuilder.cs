@@ -347,7 +347,6 @@ public class LVLBuilder : MonoBehaviour
 
         bool isBoundary = IsBiomeBoundaryTile(zPosition);
 
-
         List<int> viableLanes = new();
         List<int> safeLanesForContent = new();
 

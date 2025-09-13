@@ -436,28 +436,12 @@ public class LVLBuilder : MonoBehaviour
             }
         }
 
-
         if (!isBoundary && !isSafeTile && currentBiome.coins.Count > 0)
         {
-          
             List<int> coinLanes = viableLanes.ToList();
-
-            
-            int guaranteedLane = coinLanes[Random.Range(0, coinLanes.Count)];
-            SpawnCoinAtLane(segment, guaranteedLane, zPosition);
-
-        
-            foreach (int lane in coinLanes)
-            {
-                if (lane == guaranteedLane) continue;
-                if (Random.value < 0.4f) 
-                {
-                    SpawnCoinAtLane(segment, lane, zPosition);
-                }
-            }
+            int chosenLane = coinLanes[Random.Range(0, coinLanes.Count)];
+            SpawnCoinAtLane(segment, chosenLane, zPosition);
         }
-
-
 
         if (!isBoundary && !skipNextBGSpawn) 
         {

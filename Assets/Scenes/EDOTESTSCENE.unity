@@ -902,8 +902,8 @@ MonoBehaviour:
   safeStartTiles: 10
   generateDistance: 100
   despawnDistance: 50
-  _fogStartOffset: 0
-  _fogEndOffset: 10
+  _fogStartOffset: 10
+  _fogEndOffset: 1000
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
@@ -2053,6 +2053,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9625592
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.27107176
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 31.456
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417511741183717224, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3823573793860143598, guid: 4789b266ca3fe814d95089f7aefac56b,
         type: 3}
       propertyPath: m_ApplyRootMotion

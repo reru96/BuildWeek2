@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 1, g: 0, b: 0, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogStart: 200
+  m_LinearFogEnd: 1000
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -577,7 +577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &471808551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -614,7 +614,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScene: 
-  menu: {fileID: 1209383859}
+  uiScoreManager: {fileID: 0}
+  leaderboardPanel: {fileID: 0}
+  shopMenu: {fileID: 0}
+  playerLife: {fileID: 0}
 --- !u!114 &471808553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,6 +902,8 @@ MonoBehaviour:
   safeStartTiles: 10
   generateDistance: 100
   despawnDistance: 50
+  _fogStartOffset: 60
+  _fogEndOffset: 100
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
@@ -1081,12 +1086,6 @@ PrefabInstance:
 --- !u!224 &1209383858 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4061879520266444524, guid: bed7f7893f6e6644da9f776d24958f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1209383857}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1209383859 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2179594852529956309, guid: bed7f7893f6e6644da9f776d24958f8e,
     type: 3}
   m_PrefabInstance: {fileID: 1209383857}
   m_PrefabAsset: {fileID: 0}
@@ -1366,7 +1365,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -108, y: -107}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 710}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473112985
 MonoBehaviour:
@@ -1500,6 +1499,8 @@ MonoBehaviour:
   distanceText: {fileID: 188254066}
   pointsPerMeter: 1
   multiplierRate: 0.1
+  scoreManager: {fileID: 0}
+  scoreTexts: []
 --- !u!1 &1582557939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,7 +1649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1630286228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2056,6 +2057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342846206045814298, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6309334796137838626, guid: 4789b266ca3fe814d95089f7aefac56b,
         type: 3}

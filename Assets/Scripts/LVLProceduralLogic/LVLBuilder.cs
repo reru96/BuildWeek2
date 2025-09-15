@@ -19,6 +19,10 @@ public class LVLBuilder : MonoBehaviour
     [SerializeField] private float generateDistance = 100f;
     [SerializeField] private float despawnDistance = 50f;
 
+    [Header("Fog Settings")]
+    [SerializeField] float _fogStartOffset = 10;
+    [SerializeField] float _fogEndOffset = 100;
+
     [Header("Biome")]
     [SerializeField] private List<BiomeData> availableBiomes;
     [SerializeField] private float biomeChangeDistance = 200f;
@@ -64,6 +68,10 @@ public class LVLBuilder : MonoBehaviour
         GenerateAhead();
         CleanupBehind();
         CheckBiomeChange();
+
+        //Test metodo nebbia
+
+        UpdateFogDistance();
     }
 
     void Initialize() // Inizializza il generatore di livelli
@@ -81,6 +89,7 @@ public class LVLBuilder : MonoBehaviour
             laneWidth = laneWidth
         };
 
+        backgroundBuilder?.Initialize(levelParams);
 
         foreach (var biome in availableBiomes) /// Prewarm delle pool per tutti i prefab usati nei biomi DA SISTEMARE E INTEGRARE CON IL CAMBIAMENTO DINAMICO DEI BIOMI
         {
@@ -95,7 +104,7 @@ public class LVLBuilder : MonoBehaviour
 
             foreach (var collectable in biome.collectables)
                 PoolManager.Instance.Prewarm(collectable.prefab, 5, transform);
-           
+
             foreach (var coin in biome.coins)
                 PoolManager.Instance.Prewarm(coin.prefab, 5, transform);
 
@@ -114,7 +123,7 @@ public class LVLBuilder : MonoBehaviour
         for (int i = 0; i < safeStartTiles; i++)
             GenerateTileSegment(i * tileLength);
 
-        backgroundBuilder?.Initialize(levelParams);
+
 
         ApplyBiomeEnvironment();
     }
@@ -223,6 +232,15 @@ public class LVLBuilder : MonoBehaviour
 
     void ApplyBiomeEnvironment()
     {
+
+        //GESTIONE DELLA NEBBIA
+        RenderSettings.fog = true;
+        RenderSettings.fogMode = FogMode.Linear;
+
+        // Fog start a metà visibilità, end al fondo
+        RenderSettings.fogStartDistance = player.position.z + 60f;
+        RenderSettings.fogEndDistance = player.position.z + 100f;
+
         RenderSettings.fogColor = currentBiome.fogColor;
         RenderSettings.ambientLight = currentBiome.ambientLightColor;
 
@@ -246,6 +264,20 @@ public class LVLBuilder : MonoBehaviour
         {
             r.material = currentBiome.tileMaterial;
         }
+    }
+
+    //NEBBIA
+
+    void UpdateFogDistance()
+    {
+
+        if (!Camera.main) return; //Check della camera
+
+        float camZ = Camera.main.transform.position.z; // gestione degli offset in relazione alla camera
+
+        RenderSettings.fogStartDistance = camZ + _fogStartOffset;
+        RenderSettings.fogEndDistance = camZ + _fogEndOffset;
+
     }
 
     //GETIONE CHUNK 
@@ -442,14 +474,14 @@ public class LVLBuilder : MonoBehaviour
             SpawnCoinAtLane(segment, chosenLane, zPosition);
         }
 
-        if (!isBoundary && !skipNextBGSpawn) 
+        if (!isBoundary && !skipNextBGSpawn)
         {
             backgroundBuilder?.SpawnBackgroundAt(currentBiome, zPosition);
         }
         else
         {
             if (skipNextBGSpawn) skipNextBGSpawn = false;
-            if (suppressNextBG) suppressNextBG = false;     
+            if (suppressNextBG) suppressNextBG = false;
         }
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
@@ -466,7 +498,7 @@ public class LVLBuilder : MonoBehaviour
         {
             GameObject coin = PoolManager.Instance.Spawn(coinData.prefab, coinPos, Quaternion.identity, transform);
 
-           
+
             CoinPickUp pickup = coin.GetComponent<CoinPickUp>();
             if (pickup != null)
                 pickup.coinData = coinData;

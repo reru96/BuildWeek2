@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LifeController : MonoBehaviour
@@ -17,6 +18,8 @@ public class LifeController : MonoBehaviour
 
     [Header("Death Settings")]
     [SerializeField] private DeathAction death = DeathAction.Destroy;
+
+    public UnityEvent OnDeath;
 
     public enum DeathAction { None, Destroy, Disable, Die, SceneReload }
 
@@ -74,11 +77,12 @@ public class LifeController : MonoBehaviour
 
         if (oldHp > 0 && currentHp == 0)
         {
+            OnDeath?.Invoke();
             HandleDeath();
         }
     }
 
-    private void HandleDeath()
+    public void HandleDeath()
     {
         switch (death)
         {

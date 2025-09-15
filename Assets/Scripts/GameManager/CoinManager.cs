@@ -1,26 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CoinManager : Singleton<CoinManager>  
 {
+
     public int coins = 0;
-    public TextMeshProUGUI coinText;
 
     protected override void Awake()
     {
         base.Awake();
-        coins = PlayerPrefs.GetInt("Coins", 0);
-        UpdateUI();
+
+        // Carica coins da SaveData JSON
+        LoadCoins();
     }
+
+    #region Gestione Coins
 
     public void AddCoins(int amount)
     {
         coins += amount;
-        PlayerPrefs.SetInt("Coins", coins);
-        UpdateUI();
+        SaveCoins();
+      
     }
 
     public bool SpendCoins(int amount)
@@ -28,16 +32,45 @@ public class CoinManager : Singleton<CoinManager>
         if (coins >= amount)
         {
             coins -= amount;
-            PlayerPrefs.SetInt("Coins", coins);
-            UpdateUI();
+            SaveCoins();
             return true;
         }
         return false;
     }
 
-    private void UpdateUI()
+    public void SetCoins(int amount)
     {
-        if (coinText != null)
-            coinText.text = ": " + coins;
+        coins = Mathf.Max(0, amount);
+        SaveCoins();
     }
+
+    public int GetCoins() => coins;
+
+
+    public event Action<int> OnCoinsChanged;
+
+    private void NotifyChange()
+    {
+        OnCoinsChanged?.Invoke(coins);
+    }
+
+    #endregion
+
+    #region Salvataggio/Caricamento JSON
+
+    public void SaveCoins()
+    {
+        SaveData data = SaveManager.Load();
+        data.coins = coins; // salva coins nel SaveData
+        SaveManager.Save(data);
+        NotifyChange();
+    }
+
+    public void LoadCoins()
+    {
+        SaveData data = SaveManager.Load();
+        coins = data.coins;
+    }
+
+    #endregion
 }

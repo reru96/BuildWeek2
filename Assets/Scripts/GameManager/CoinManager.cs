@@ -9,7 +9,6 @@ public class CoinManager : Singleton<CoinManager>
 {
 
     public int coins = 0;
-    public TextMeshProUGUI coinText; // opzionale, se non assegnato lo cerca in scena
 
     protected override void Awake()
     {
@@ -17,7 +16,6 @@ public class CoinManager : Singleton<CoinManager>
 
         // Carica coins da SaveData JSON
         LoadCoins();
-        UpdateUI();
     }
 
     #region Gestione Coins
@@ -26,7 +24,7 @@ public class CoinManager : Singleton<CoinManager>
     {
         coins += amount;
         SaveCoins();
-        UpdateUI();
+      
     }
 
     public bool SpendCoins(int amount)
@@ -35,7 +33,6 @@ public class CoinManager : Singleton<CoinManager>
         {
             coins -= amount;
             SaveCoins();
-            UpdateUI();
             return true;
         }
         return false;
@@ -45,33 +42,10 @@ public class CoinManager : Singleton<CoinManager>
     {
         coins = Mathf.Max(0, amount);
         SaveCoins();
-        UpdateUI();
     }
 
     public int GetCoins() => coins;
 
-    #endregion
-
-    #region UI
-
-    private void UpdateUI()
-    {
-        // Se coinText non è assegnato, prova a trovarlo in scena
-        if (coinText == null)
-        {
-            GameObject go = GameObject.Find("CoinText");
-            if (go != null)
-                coinText = go.GetComponent<TextMeshProUGUI>();
-        }
-
-        // Se esiste, aggiorna il testo
-        if (coinText != null)
-            coinText.text = ": " + coins;
-    }
-
-    #endregion
-
-    #region Eventi
 
     public event Action<int> OnCoinsChanged;
 

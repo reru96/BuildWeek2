@@ -27,8 +27,20 @@ public class StartMenu : MonoBehaviour
     public void NewGame()
     {
         // Ricomincia da zero → crea un nuovo SaveData vuoto
-        SaveManager.Save(new SaveData());
-        SceneManager.LoadScene(1); // scena iniziale
+        SaveData newSave = new SaveData();
+        newSave.coins = 0;        // azzera coins
+        newSave.score = 0;        // azzera punteggio
+        newSave.sceneIndex = 1;   // prima scena di gioco (modifica se serve)
+
+        SaveManager.Save(newSave);
+
+        // Se il CoinManager esiste già in scena, resetta anche lui
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.SetCoins(0);
+        }
+
+        SceneManager.LoadScene(1);
     }
 
     public void ContinueGame()

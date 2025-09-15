@@ -237,9 +237,9 @@ public class LVLBuilder : MonoBehaviour
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.Linear;
 
-        // Fog start a metà visibilità, end al fondo
-        RenderSettings.fogStartDistance = player.position.z + 60f;
-        RenderSettings.fogEndDistance = player.position.z + 100f;
+        //// Fog start a metà visibilità, end al fondo
+        //RenderSettings.fogStartDistance = player.position.z + 60f;
+        //RenderSettings.fogEndDistance = player.position.z + 100f;
 
         RenderSettings.fogColor = currentBiome.fogColor;
         RenderSettings.ambientLight = currentBiome.ambientLightColor;

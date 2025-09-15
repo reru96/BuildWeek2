@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 798486297664136292, guid: 04bcb4e2b3fc8b740bbf664a0ecc29f0, type: 3}
   weight: 1
   lengthInTiles: 1
+  side: 2

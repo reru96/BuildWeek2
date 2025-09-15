@@ -902,8 +902,8 @@ MonoBehaviour:
   safeStartTiles: 10
   generateDistance: 100
   despawnDistance: 50
-  _fogStartOffset: 60
-  _fogEndOffset: 100
+  _fogStartOffset: 0
+  _fogEndOffset: 10
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}

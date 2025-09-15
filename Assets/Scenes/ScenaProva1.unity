@@ -1628,6 +1628,16 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5904630489587065824, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: gravity
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904630489587065824, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: laneChangeSpeed
+      value: 3.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6309334796137838626, guid: 4789b266ca3fe814d95089f7aefac56b,
         type: 3}
       propertyPath: m_LocalPosition.y

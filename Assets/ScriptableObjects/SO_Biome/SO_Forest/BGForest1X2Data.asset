@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094619dad0a17f64687d041cb4785f87, type: 3}
   m_Name: BGForest1X2Data
   m_EditorClassIdentifier: 
-  prefab: {fileID: 798486297664136292, guid: 04bcb4e2b3fc8b740bbf664a0ecc29f0, type: 3}
+  prefab: {fileID: 798486297664136292, guid: 3e770175dba5264498d3b69ba4e6f16b, type: 3}
   weight: 1
   lengthInTiles: 1
   side: 2

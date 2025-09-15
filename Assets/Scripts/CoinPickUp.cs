@@ -12,7 +12,6 @@ public class CoinPickUp : MonoBehaviour
         {
             if (coinData != null)
             {
-
                 CoinManager.Instance.AddCoins(coinData.value);
             }
             PoolManager.Instance.Despawn(gameObject);

@@ -67,11 +67,5 @@ public class UIMenu : MonoBehaviour
         Time.timeScale = 1f;
         shopMenu.SetActive(false);
     }
-
-    public void LoadMainMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(startScene); 
-    }
    
 }

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CoinManager : Singleton<CoinManager>  
 {
@@ -12,14 +13,15 @@ public class CoinManager : Singleton<CoinManager>
     protected override void Awake()
     {
         base.Awake();
-        coins = PlayerPrefs.GetInt("Coins", 0);
+
+        LoadCoins();
         UpdateUI();
     }
 
     public void AddCoins(int amount)
     {
         coins += amount;
-        PlayerPrefs.SetInt("Coins", coins);
+        SaveCoins();
         UpdateUI();
     }
 
@@ -28,16 +30,59 @@ public class CoinManager : Singleton<CoinManager>
         if (coins >= amount)
         {
             coins -= amount;
-            PlayerPrefs.SetInt("Coins", coins);
+            SaveCoins();
             UpdateUI();
             return true;
         }
         return false;
     }
 
+    public void SetCoins(int amount)
+    {
+        coins = Mathf.Max(0, amount);
+        SaveCoins();
+        UpdateUI();
+    }
+
+    public int GetCoins() => coins;
+
+
     private void UpdateUI()
     {
+        // Se coinText non è assegnato, cerca in scena un oggetto chiamato "CoinText"
+        if (coinText == null)
+        {
+            GameObject go = GameObject.Find("CoinText");
+            if (go != null)
+                coinText = go.GetComponent<TextMeshProUGUI>();
+        }
+
+       
         if (coinText != null)
             coinText.text = ": " + coins;
     }
+
+    public event Action<int> OnCoinsChanged;
+
+    private void NotifyChange()
+    {
+        OnCoinsChanged?.Invoke(coins);
+    }
+
+    
+    public void SaveCoins()
+    {
+        SaveData data = SaveManager.Load();
+        data.coins = coins; 
+        SaveManager.Save(data);
+        NotifyChange();
+    }
+
+    public void LoadCoins()
+    {
+        SaveData data = SaveManager.Load();
+        coins = data.coins;
+    }
+
+  
 }

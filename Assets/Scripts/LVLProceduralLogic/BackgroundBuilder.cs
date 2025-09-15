@@ -65,9 +65,13 @@ public class BackgroundBuilder : MonoBehaviour
         var selectedBG = biome.backgroundTiles[Random.Range(0, biome.backgroundTiles.Count)];
         if (selectedBG == null || selectedBG.prefab == null) return;
 
-        SpawnSingleBG(selectedBG, new Vector3(0, 0, zPos));
-        _lastBackgroundZ = zPos + selectedBG.GetWorldLength(_levelParams);
+        float tileCenterOffset = _levelParams.tileLength * 0.5f;
+        float spawnZ = zPos + tileCenterOffset;
+
+        SpawnSingleBG(selectedBG, new Vector3(0, 0, spawnZ));
+        _lastBackgroundZ = spawnZ + selectedBG.GetWorldLength(_levelParams);
     }
+
 
     public void DespawnOldBackgrounds(float despawnZ)
     {

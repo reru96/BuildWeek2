@@ -645,6 +645,8 @@ MonoBehaviour:
   safeStartTiles: 3
   generateDistance: 50
   despawnDistance: 20
+  _fogStartOffset: 10
+  _fogEndOffset: 100
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
@@ -1541,6 +1543,11 @@ PrefabInstance:
       propertyPath: scoreTexts.Array.data[4]
       value: 
       objectReference: {fileID: 140877100}
+    - target: {fileID: 4906279016831014993, guid: 2840c69ba839b554aa46e8257a7c3687,
+        type: 3}
+      propertyPath: m_Name
+      value: 'CoinText '
+      objectReference: {fileID: 0}
     - target: {fileID: 8452473650864024609, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
       propertyPath: m_SizeDelta.x

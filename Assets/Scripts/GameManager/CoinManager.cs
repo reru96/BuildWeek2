@@ -7,16 +7,20 @@ using UnityEngine.UI;
 
 public class CoinManager : Singleton<CoinManager>  
 {
+
     public int coins = 0;
-    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI coinText; // opzionale, se non assegnato lo cerca in scena
 
     protected override void Awake()
     {
         base.Awake();
 
+        // Carica coins da SaveData JSON
         LoadCoins();
         UpdateUI();
     }
+
+    #region Gestione Coins
 
     public void AddCoins(int amount)
     {
@@ -46,10 +50,13 @@ public class CoinManager : Singleton<CoinManager>
 
     public int GetCoins() => coins;
 
+    #endregion
+
+    #region UI
 
     private void UpdateUI()
     {
-        // Se coinText non è assegnato, cerca in scena un oggetto chiamato "CoinText"
+        // Se coinText non è assegnato, prova a trovarlo in scena
         if (coinText == null)
         {
             GameObject go = GameObject.Find("CoinText");
@@ -57,10 +64,14 @@ public class CoinManager : Singleton<CoinManager>
                 coinText = go.GetComponent<TextMeshProUGUI>();
         }
 
-       
+        // Se esiste, aggiorna il testo
         if (coinText != null)
             coinText.text = ": " + coins;
     }
+
+    #endregion
+
+    #region Eventi
 
     public event Action<int> OnCoinsChanged;
 
@@ -69,11 +80,14 @@ public class CoinManager : Singleton<CoinManager>
         OnCoinsChanged?.Invoke(coins);
     }
 
-    
+    #endregion
+
+    #region Salvataggio/Caricamento JSON
+
     public void SaveCoins()
     {
         SaveData data = SaveManager.Load();
-        data.coins = coins; 
+        data.coins = coins; // salva coins nel SaveData
         SaveManager.Save(data);
         NotifyChange();
     }
@@ -84,5 +98,5 @@ public class CoinManager : Singleton<CoinManager>
         coins = data.coins;
     }
 
-  
+    #endregion
 }

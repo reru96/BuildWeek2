@@ -55,7 +55,9 @@ public class BackgroundBuilder : MonoBehaviour
     public void SpawnBiomeTransition(BGTileData transition, Vector3 position)
     {
         if (transition == null || transition.prefab == null) return;
-        SpawnSingleBG(transition, position);
+        float tileCenterOffset = _levelParams.tileLength * 0.5f;
+        Vector3 centerPos = position + new Vector3(0, 0, tileCenterOffset);
+        SpawnSingleBG(transition, centerPos);
     }
 
     public void SpawnBackgroundAt(BiomeData biome, float zPos)

@@ -30,5 +30,5 @@ MonoBehaviour:
   transitionEnd: {fileID: 11400000, guid: 16d825fd9d5da494abd6627df87317e1, type: 2}
   tileMaterial: {fileID: 2100000, guid: 8bf92490ba55e9f438d24d6601d46304, type: 2}
   biomeMusic: {fileID: 0}
-  fogColor: {r: 1, g: 1, b: 1, a: 0}
+  fogColor: {r: 0.13723731, g: 0.96981126, b: 0.16813599, a: 0}
   ambientLightColor: {r: 0.73294836, g: 0.2688679, b: 1, a: 0}

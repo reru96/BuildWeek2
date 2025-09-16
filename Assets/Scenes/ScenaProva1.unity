@@ -666,6 +666,7 @@ MonoBehaviour:
   safeStartTiles: 3
   generateDistance: 50
   despawnDistance: 20
+  delayMusic: 5
   _fogStartOffset: 10
   _fogEndOffset: 100
   availableBiomes:

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -128,5 +129,16 @@ public class AudioManager : Singleton<AudioManager>
     public void SetSfxVolume(float volume)
     {
         audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
+    }
+
+    public void PlayMusicLater(string key, float delay, float volume = 1f)
+    {
+        StartCoroutine(PlayMusicCoroutine(key, delay, volume));
+    }
+
+    private IEnumerator PlayMusicCoroutine(string key, float delay, float volume)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayMusic(key, volume);
     }
 }

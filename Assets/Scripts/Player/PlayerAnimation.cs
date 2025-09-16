@@ -6,13 +6,13 @@ using UnityEngine.Playables;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    [SerializeField] private RenatoPlayerController playerController;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private Animator animator;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
-        playerController = GetComponent<RenatoPlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()

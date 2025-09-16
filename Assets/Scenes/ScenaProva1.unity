@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundParent: {fileID: 1235063525}
+  maxBackgroundTiles: 50
 --- !u!4 &750807402
 Transform:
   m_ObjectHideFlags: 0
@@ -599,6 +600,8 @@ MonoBehaviour:
   safeStartTiles: 3
   generateDistance: 50
   despawnDistance: 20
+  _fogStartOffset: 10
+  _fogEndOffset: 100
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
@@ -607,10 +610,10 @@ MonoBehaviour:
   obstacleChance: 0.2
   enemyChance: 0.15
   powerupChance: 0.1
-  tilesPerChunk: 21
+  tilesPerChunk: 25
   availableChunks:
-  - {fileID: 11400000, guid: 672f41e1c99be0f4d8175a9ad3f6129f, type: 2}
   - {fileID: 11400000, guid: f516331b826be9841adc1901a0de3af2, type: 2}
+  - {fileID: 11400000, guid: 672f41e1c99be0f4d8175a9ad3f6129f, type: 2}
   showDebugInfo: 1
 --- !u!4 &782345613
 Transform:

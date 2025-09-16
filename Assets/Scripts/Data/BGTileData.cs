@@ -12,7 +12,9 @@ public class BGTileData : ScriptableObject
     public GameObject prefab;
     public int weight = 1;
     public int lengthInTiles = 1;
-    public BGSide side = BGSide.Both; // <-- qui scegli in Inspector
+    public BGSide side = BGSide.Both;
+    public float worldLength;
+
 
     public float GetWorldLength(LVLParameters levelParams)
     {

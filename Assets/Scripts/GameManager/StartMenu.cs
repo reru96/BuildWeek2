@@ -30,7 +30,14 @@ public class StartMenu : MonoBehaviour
         SaveData newSave = new SaveData();
         newSave.coins = 0;        
         newSave.score = 0;        
-        newSave.sceneIndex = 1;   
+        newSave.sceneIndex = 1;
+        newSave.playerX = 0f;
+        newSave.playerY = 0f;
+        newSave.playerZ = 0f;
+        newSave.highScores = new List<int>();
+        newSave.collectables = new List<bool>();
+        newSave.boosts = new List<BoostSaveData>();
+
 
         SaveManager.Save(newSave);
 

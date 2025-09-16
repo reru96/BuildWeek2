@@ -157,11 +157,10 @@ public class ShopManager : MonoBehaviour
             if (bData != null)
             {
                 b.currentLevel = bData.currentLevel;
-                b.RestoreBoostState(); 
+                b.RestoreBoostState();
             }
         }
 
-            PlayerInventory.Instance.RestoreBoosts(boosts);
-
+        PlayerInventory.Instance.RestoreBoosts(boosts);
     }
 }

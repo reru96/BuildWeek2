@@ -15,12 +15,12 @@ MonoBehaviour:
   namePowerUp: ForceField
   prefab: {fileID: 1840070034121605207, guid: 3bf5f8303ef954c4989d706e7aa85ea2, type: 3}
   weight: 1
-  cost: 0
+  cost: 1
   minDifficultyLevel: 0
   maxDifficultyLevel: 0
   icon: {fileID: 21300000, guid: e3df1844d77e43b4f9c19b007bc2047d, type: 3}
   maxDifficult: 0
   minDifficult: 0
-  shopped: 1
+  shopped: 0
   forceStrength: 10
   radius: 5

@@ -13,18 +13,13 @@ public class CoinManager : Singleton<CoinManager>
     protected override void Awake()
     {
         base.Awake();
-
-        // Carica coins da SaveData JSON
         LoadCoins();
     }
-
-    #region Gestione Coins
 
     public void AddCoins(int amount)
     {
         coins += amount;
-        SaveCoins();
-      
+        SaveCoins();      
     }
 
     public bool SpendCoins(int amount)
@@ -54,14 +49,10 @@ public class CoinManager : Singleton<CoinManager>
         OnCoinsChanged?.Invoke(coins);
     }
 
-    #endregion
-
-    #region Salvataggio/Caricamento JSON
-
     public void SaveCoins()
     {
         SaveData data = SaveManager.Load();
-        data.coins = coins; // salva coins nel SaveData
+        data.coins = coins; 
         SaveManager.Save(data);
         NotifyChange();
     }
@@ -71,6 +62,5 @@ public class CoinManager : Singleton<CoinManager>
         SaveData data = SaveManager.Load();
         coins = data.coins;
     }
-
-    #endregion
+ 
 }

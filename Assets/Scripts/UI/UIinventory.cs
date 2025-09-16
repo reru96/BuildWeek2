@@ -6,6 +6,7 @@ public class UIinventory : MonoBehaviour
 {
     public Transform inventoryContainer;
     public GameObject inventorySlotPrefab;
+    public GameObject player;
 
 
     public void RefreshCollectables()
@@ -19,20 +20,13 @@ public class UIinventory : MonoBehaviour
             slot.name = item.namePowerUp;
             Image icon = slot.GetComponent<Image>();
             if (icon != null) icon.sprite = item.icon;
-        }
-    }
+            Button btn = slot.GetComponent<Button>();
+            if (btn != null)
+            {
+                btn.onClick.AddListener(() => item.Use(player));
+            }
 
-    public void RefreshBoosts(List<PermanentBoostObject> boosts)
-    {
-        foreach (Transform t in inventoryContainer)
-            Destroy(t.gameObject);
-
-        foreach (var boost in boosts)
-        {
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryContainer);
-            slot.name = boost.nome;
-            Image icon = slot.GetComponent<Image>();
-            if (icon != null) icon.sprite = boost.icon;
         }
+
     }
 }

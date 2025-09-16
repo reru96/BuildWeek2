@@ -2,52 +2,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : Singleton<PlayerInventory>
 {
-    [Header("UI Inventario")]
-    public Transform inventoryContainer;    
-    public GameObject inventorySlotPrefab;     
 
     private List<CollectableData> collectedItems = new List<CollectableData>();
+    private List<PermanentBoostObject> collectedBoosts = new List<PermanentBoostObject>();
+
+    protected override bool ShouldBeDestroyOnLoad() => true;
 
     public void AddItem(CollectableData item)
     {
-        if (item == null) return;
-
+        if (item == null || collectedItems.Contains(item)) return;
         collectedItems.Add(item);
-        Debug.Log("Aggiunto all'inventario: " + item.namePowerUp);
+    }
 
-      
-        if (inventorySlotPrefab != null && inventoryContainer != null)
+    public void AddBoost(PermanentBoostObject boost)
+    {
+        if (boost == null || collectedBoosts.Contains(boost)) return;
+
+        collectedBoosts.Add(boost);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            boost.PassiveEffect(player);
+    }
+
+    public void RestoreBoosts(List<PermanentBoostObject> allBoosts)
+    {
+        collectedBoosts.Clear();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
+        foreach (var boost in allBoosts)
         {
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryContainer);
-            slot.name = item.namePowerUp;
-
-            Image icon = slot.GetComponent<Image>();
-            if (icon != null && item.icon != null)
-                icon.sprite = item.icon;
-
-           
-            Button btn = slot.GetComponent<Button>();
-            if (btn != null)
+            if (boost.currentLevel > 0)
             {
-                btn.onClick.AddListener(() => OnSlotClicked(item));
+                collectedBoosts.Add(boost);
+                boost.PassiveEffect(player);
             }
         }
     }
 
-    private void OnSlotClicked(CollectableData item)
-    {
-        Debug.Log("Slot cliccato: " + item.namePowerUp);
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            item.Use(player);
-        }
-        collectedItems.Remove(item);
-
-    }
-
-    public List<CollectableData> GetInventory() => collectedItems;
+    public List<CollectableData> GetCollectedItems() => collectedItems;
+    public List<PermanentBoostObject> GetCollectedBoosts() => collectedBoosts;
 }

@@ -10,4 +10,13 @@ public class SaveData
    public float playerX, playerY, playerZ;
    public int score;
    public int coins;
+   public List<bool> collectables = new List<bool>();
+   public List<BoostSaveData> boosts = new List<BoostSaveData>();
+}
+
+[System.Serializable]
+public class BoostSaveData
+{
+    public string boostName;  
+    public int currentLevel;
 }

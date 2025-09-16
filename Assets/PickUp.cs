@@ -12,8 +12,10 @@ public class PickUp : MonoBehaviour
         {
             if (powerUpData != null)
             {
-                var player = other.GetComponent<PlayerInventory>();  
-                player.AddItem(powerUpData);
+                PlayerInventory.Instance.AddItem(powerUpData);
+                UIinventory ui = FindObjectOfType<UIinventory>();
+                if (ui != null)
+                    ui.RefreshCollectables();
             }
             PoolManager.Instance.Despawn(gameObject);
         }

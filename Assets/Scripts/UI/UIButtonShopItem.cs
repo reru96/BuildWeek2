@@ -4,28 +4,62 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class UIButtonShopItem : MonoBehaviour
 {
-    [Header("Riferimenti UI")]
-    public TextMeshProUGUI buttonText;
+    [Header("UI Riferimenti")]
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI costText;
+    public TextMeshProUGUI levelText;
     public Image iconImage;
 
-    private CollectableData data; 
+    private CollectableData currentCollectable;
+    private PermanentBoostObject currentBoost;
+
+    public CollectableData GetData() => currentCollectable;
+    public PermanentBoostObject GetBoost() => currentBoost;
 
     public void SetData(CollectableData collectable)
     {
-        data = collectable;
+        currentCollectable = collectable;
+        currentBoost = null;
 
-        if (collectable.shopped)
-            buttonText.text = $"{collectable.namePowerUp} (Acquistato)";
-        else
-            buttonText.text = $"{collectable.namePowerUp} - {collectable.cost} coins";
+        if (nameText != null)
+            nameText.text = collectable.namePowerUp;
 
-        if (collectable.icon != null)
+        if (iconImage != null)
             iconImage.sprite = collectable.icon;
+
+        if (costText != null)
+            costText.text = collectable.shopped ? "Comprato" : collectable.cost + " $";
+
+        if (levelText == null) return;
     }
 
-    public CollectableData GetData() => data;
+
+    public void SetDataBoost(PermanentBoostObject boost)
+    {
+        currentBoost = boost;
+        currentCollectable = null;
+
+        if (nameText != null)
+            nameText.text = boost.nome;
+
+        if (iconImage != null)
+            iconImage.sprite = boost.icon;
+        
+        if (boost.currentLevel >= boost.maxLevel)
+        {
+            costText.text = ($"{boost.nome} è già al livello massimo!");
+        }
+        else 
+        {
+          costText.text = boost.cost + " $";
+        }
+            
+        if (levelText != null)
+            levelText.text = "Livello: " + boost.currentLevel;
+    }
 }
 

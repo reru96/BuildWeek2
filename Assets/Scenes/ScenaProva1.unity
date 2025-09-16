@@ -676,7 +676,7 @@ MonoBehaviour:
   obstacleChance: 0.2
   enemyChance: 0.15
   powerupChance: 0.1
-  tilesPerChunk: 25
+  tilesPerChunk: 50
   availableChunks:
   - {fileID: 11400000, guid: f516331b826be9841adc1901a0de3af2, type: 2}
   - {fileID: 11400000, guid: 672f41e1c99be0f4d8175a9ad3f6129f, type: 2}

@@ -6,27 +6,26 @@ public class ScoreManager : MonoBehaviour
 {
     private SaveData saveData;
 
-    void Start()
+    private void Awake()
     {
         saveData = SaveManager.Load();
+        if (saveData.highScores == null)
+            saveData.highScores = new List<int>();
     }
 
     public void AddScore(int newScore)
     {
         saveData.highScores.Add(newScore);
 
-        // Ordino dal più alto al più basso
         saveData.highScores.Sort((a, b) => b.CompareTo(a));
-
-        // Tengo solo i primi 5
         if (saveData.highScores.Count > 5)
-            saveData.highScores = saveData.highScores.GetRange(0, 5);
+            saveData.highScores.RemoveRange(5, saveData.highScores.Count - 5);
 
         SaveManager.Save(saveData);
     }
 
     public List<int> GetHighScores()
     {
-        return saveData.highScores;
+        return new List<int>(saveData.highScores);
     }
 }

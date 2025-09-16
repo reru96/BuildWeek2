@@ -31,25 +31,20 @@ public class UIScoreManager : MonoBehaviour
         distanceTravelled = 0f;
         timeAlive = 0f;
 
-
         UpdateLeaderboard();
     }
 
     void Update()
     {
-
         distanceTravelled = player.position.z - startZ;
         if (distanceTravelled < 0) distanceTravelled = 0;
 
- 
         timeAlive += Time.deltaTime;
 
         multiplier = 1f + (timeAlive * multiplierRate);
 
-  
         score = Mathf.FloorToInt(distanceTravelled * pointsPerMeter * multiplier);
 
-      
         if (scoreText != null)
         {
             scoreText.text = $": {score}\n: x{multiplier:F2}";
@@ -61,14 +56,25 @@ public class UIScoreManager : MonoBehaviour
         }
     }
 
-    /// Aggiunge lo score corrente alla classifica e aggiorna la leaderboard
+    public void SetScore(int newScore)
+    {
+        score = newScore;
+        if (scoreText != null)
+            scoreText.text = $": {score}\n: x{multiplier:F2}";
+    }
+
+   
     public void SaveAndUpdateLeaderboard()
     {
         scoreManager.AddScore(score);
+
+      
+        SaveData data = SaveManager.Load();
+        data.score = score; 
+        SaveManager.Save(data);
+
         UpdateLeaderboard();
     }
-
-    /// Aggiorna la UI con la top 5
 
     public void UpdateLeaderboard()
     {

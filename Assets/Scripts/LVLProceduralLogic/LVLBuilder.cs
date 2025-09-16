@@ -18,6 +18,7 @@ public class LVLBuilder : MonoBehaviour
     [SerializeField] private int safeStartTiles = 10; //Sono le tile iniziali senza buchi
     [SerializeField] private float generateDistance = 100f;
     [SerializeField] private float despawnDistance = 50f;
+    [SerializeField] private float delayMusic = 5f;
 
     [Header("Fog Settings")]
     [SerializeField] float _fogStartOffset = 10;
@@ -217,7 +218,7 @@ public class LVLBuilder : MonoBehaviour
         // Cambia bioma
         currentBiome = newBiome;
         nextBiomeChangeZ += biomeChangeDistance;
-        AudioManager.Instance.PlayMusic(newBiome.biomeMusic);
+        AudioManager.Instance.PlayMusicLater(newBiome.biomeMusic,delayMusic);
         AudioManager.Instance.SetMusicVolume(1f);
         difficultyLevel++;
 
@@ -247,7 +248,6 @@ public class LVLBuilder : MonoBehaviour
             PrintDebugInfo();
         }
     }
-
 
     private bool IsBiomeBoundaryTile(float zPos)
     {

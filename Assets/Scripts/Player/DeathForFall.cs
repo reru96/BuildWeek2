@@ -5,10 +5,10 @@ using UnityEngine;
 public class DeathForFall : MonoBehaviour
 {
     [Header("Fall Death Settings")]
-    [SerializeField] private float fallDeathHeight = 2f; // altezza massima di caduta
+    [SerializeField] private float fallDeathHeight = 2f; 
 
     [Header("Life Controller")]
-    [SerializeField] private LifeController lifeController; // riferimento al LifeController del player
+    [SerializeField] private LifeController lifeController; 
 
     private float startY;
 

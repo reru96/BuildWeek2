@@ -13,7 +13,7 @@ public class GameController : Singleton<GameController>
     {
         if (pendingSaveData != null)
         {
-            // Riposiziona il player
+           
             if (player != null)
             {
                 player.position = new Vector3(
@@ -30,7 +30,7 @@ public class GameController : Singleton<GameController>
                 scoreManager.SetScore(pendingSaveData.score); 
             }
 
-            pendingSaveData = null; // reset per non riusare sempre gli stessi dati
+            pendingSaveData = null; 
         }
     }
     public void SaveGame(Transform player)

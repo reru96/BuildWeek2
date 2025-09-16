@@ -14,27 +14,27 @@ public class StartMenu : MonoBehaviour
     {
         settingsMenu.SetActive(false);
 
-        // carica il salvataggio se esiste
+    
         lastSave = SaveManager.Load();
 
-        // Se non esiste un salvataggio valido, lastSave sarà "vuoto"
+      
         if (lastSave == null || lastSave.sceneIndex == 0)
         {
-            lastSave = null; // nessun salvataggio valido
+            lastSave = null; 
         }
     }
 
     public void NewGame()
     {
-        // Ricomincia da zero → crea un nuovo SaveData vuoto
+  
         SaveData newSave = new SaveData();
-        newSave.coins = 0;        // azzera coins
-        newSave.score = 0;        // azzera punteggio
-        newSave.sceneIndex = 1;   // prima scena di gioco (modifica se serve)
+        newSave.coins = 0;        
+        newSave.score = 0;        
+        newSave.sceneIndex = 1;   
 
         SaveManager.Save(newSave);
 
-        // Se il CoinManager esiste già in scena, resetta anche lui
+       
         if (CoinManager.Instance != null)
         {
             CoinManager.Instance.SetCoins(0);
@@ -47,10 +47,9 @@ public class StartMenu : MonoBehaviour
     {
         if (lastSave != null)
         {
-            // Carica la scena salvata
+        
             SceneManager.LoadScene(lastSave.sceneIndex);
 
-            // 👇 opzionale: il GameController legge questo dopo il caricamento
             GameController.pendingSaveData = lastSave;
         }
         else

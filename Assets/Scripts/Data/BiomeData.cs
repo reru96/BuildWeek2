@@ -22,7 +22,7 @@ public class BiomeData : ScriptableObject
     public BGTileData transitionEnd;
 
     public Material tileMaterial;
-    public AudioClip biomeMusic;
+    public string biomeMusic;
     public Color fogColor;
     public Color ambientLightColor;
 

@@ -17,13 +17,13 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        // Aggiorna l'Animator in base allo stato
+  
         animator.SetBool("IsJumping", playerController.CurrentState == AnimationState.JUMP);
         animator.SetBool("IsSliding", playerController.CurrentState == AnimationState.SLIDE);
         animator.SetFloat("LaneSpeed", playerController.CurrentState == AnimationState.MOVELEFT ? -1f :
                                    playerController.CurrentState == AnimationState.MOVERIGHT ? 1f : 0f);
 
-        // Sempre in Run se non saltando/scivolando
+   
         animator.SetBool("IsRunning", playerController.CurrentState == AnimationState.RUN ||
                                        playerController.CurrentState == AnimationState.MOVELEFT ||
                                        playerController.CurrentState == AnimationState.MOVERIGHT);

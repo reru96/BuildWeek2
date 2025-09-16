@@ -112,6 +112,8 @@ public class LVLBuilder : MonoBehaviour
 
 
         currentBiome = availableBiomes[0];
+        AudioManager.Instance.PlayMusic(currentBiome.biomeMusic);
+        AudioManager.Instance.SetMusicVolume(1f);
         nextBiomeChangeZ = biomeChangeDistance;
 
         // Faccio in modo che le prime tile siano sempre sicure (bisogna pulirle dai nemici e ostacoli dopo)
@@ -125,7 +127,7 @@ public class LVLBuilder : MonoBehaviour
 
 
 
-        ApplyBiomeEnvironment();
+
     }
 
     void GenerateAhead() // genera nuove tile davanti al giocatore o il chunk se necessario
@@ -215,7 +217,8 @@ public class LVLBuilder : MonoBehaviour
         // Cambia bioma
         currentBiome = newBiome;
         nextBiomeChangeZ += biomeChangeDistance;
-        ApplyBiomeEnvironment();
+        AudioManager.Instance.PlayMusic(newBiome.biomeMusic);
+        AudioManager.Instance.SetMusicVolume(1f);
         difficultyLevel++;
 
         // Spawna la transizione di entrata del NUOVO bioma
@@ -260,31 +263,6 @@ public class LVLBuilder : MonoBehaviour
             return true;
 
         return false;
-    }
-
-    void ApplyBiomeEnvironment()
-    {
-
-        //GESTIONE DELLA NEBBIA
-        RenderSettings.fog = true;
-        RenderSettings.fogMode = FogMode.Linear;
-
-        //// Fog start a metà visibilità, end al fondo
-        //RenderSettings.fogStartDistance = player.position.z + 60f;
-        //RenderSettings.fogEndDistance = player.position.z + 100f;
-
-        RenderSettings.fogColor = currentBiome.fogColor;
-        RenderSettings.ambientLight = currentBiome.ambientLightColor;
-
-        if (!currentBiome.biomeMusic) return;
-
-        var audio = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
-        if (audio.clip != currentBiome.biomeMusic)
-        {
-            audio.clip = currentBiome.biomeMusic;
-            audio.loop = true;
-            audio.Play();
-        }
     }
 
     void ApplyBiomeMaterial(GameObject target)

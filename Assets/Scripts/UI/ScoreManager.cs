@@ -17,7 +17,6 @@ public class ScoreManager : MonoBehaviour
     {
         saveData.highScores.Add(newScore);
 
-        // ordina e tieni solo i migliori 5
         saveData.highScores.Sort((a, b) => b.CompareTo(a));
         if (saveData.highScores.Count > 5)
             saveData.highScores.RemoveRange(5, saveData.highScores.Count - 5);

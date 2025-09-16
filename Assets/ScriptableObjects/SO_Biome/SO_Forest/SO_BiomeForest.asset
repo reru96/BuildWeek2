@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9313445089efb408229f43424fa553, type: 3}
-  m_Name: SO_BiomeTest
+  m_Name: SO_BiomeForest
   m_EditorClassIdentifier: 
   biomeType: 0
   aviabletileDatas:
@@ -23,12 +23,13 @@ MonoBehaviour:
   collectables:
   - {fileID: 11400000, guid: 433e206c2cf19304f9b241b401491db2, type: 2}
   - {fileID: 11400000, guid: 2b3a89e747953d54d8fbb0e440fbdb22, type: 2}
-  coins: []
+  coins:
+  - {fileID: 11400000, guid: e1c54b087c3e3df46849c16926ae5500, type: 2}
   backgroundTiles:
   - {fileID: 11400000, guid: f481a061301012346afb5cff16c0ae0a, type: 2}
   transitionStart: {fileID: 11400000, guid: 9599d59408579e1449c419d383a79825, type: 2}
   transitionEnd: {fileID: 11400000, guid: 16d825fd9d5da494abd6627df87317e1, type: 2}
   tileMaterial: {fileID: 2100000, guid: 8bf92490ba55e9f438d24d6601d46304, type: 2}
-  biomeMusic: {fileID: 0}
+  biomeMusic: ForestSound
   fogColor: {r: 0.13723731, g: 0.96981126, b: 0.16813599, a: 0}
   ambientLightColor: {r: 0.73294836, g: 0.2688679, b: 1, a: 0}

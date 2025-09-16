@@ -12,17 +12,17 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private string sfxVolumeParam = "SfxVolume";
 
     [Header("Audio Sources")]
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
+    [SerializeField]private AudioSource musicSource;
+    [SerializeField]private AudioSource sfxSource;
 
     [Header("Audio Library")]
     [SerializeField] private AudioLibrary audioLibrary;
     [SerializeField] private SceneMusicLibrary sceneMusicLibrary;
-    
+    [SerializeField] private BiomeMusicLibrary biomeMusicLibrary;
 
     private Dictionary<string, AudioClip> audioDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, string> sceneMusicDict = new Dictionary<string, string>();
-
+    private Dictionary<string, string> biomeDict = new Dictionary<string, string>();
     protected override bool ShouldBeDestroyOnLoad() => false;
 
     protected override void Awake()
@@ -59,6 +59,15 @@ public class AudioManager : Singleton<AudioManager>
             {
                 if (!sceneMusicDict.ContainsKey(entry.sceneName))
                     sceneMusicDict.Add(entry.sceneName, entry.musicKey);
+            }
+        }
+        
+        if (biomeMusicLibrary!= null)
+        {
+            foreach (var entry in biomeMusicLibrary.biomeMusics)
+            {
+                if (!sceneMusicDict.ContainsKey(entry.biomeName))
+                    sceneMusicDict.Add(entry.biomeName, entry.musicKey);
             }
         }
 

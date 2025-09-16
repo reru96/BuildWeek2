@@ -132,6 +132,13 @@ public class BackgroundBuilder : MonoBehaviour
         }
     }
 
+    public void SyncBackgroundTo(float zPos)
+    {
+        // Allinea il cursore del BG solo in avanti, mai indietro
+        if (zPos > _lastBackgroundZ)
+            _lastBackgroundZ = zPos;
+    }
+
     public void ResetBackgroundZ(float newZ)
     {
         // Riallinea _lastBackgroundZ a una griglia di tileLength per evitare drift

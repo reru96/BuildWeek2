@@ -317,17 +317,11 @@ public class LVLBuilder : MonoBehaviour
     {
         ChunkData chunk = SelectWeightedChunk(availableChunks);
 
+        // Se il chunk ha un BG dedicato, spawnalo come transizione
         if (chunk.overridBeckGround != null)
         {
-            GameObject bg = PoolManager.Instance.Spawn(
-                chunk.overridBeckGround.prefab,
-                new Vector3(0, 0, zPos),
-                Quaternion.identity,
-                transform
-            );
-
+            backgroundBuilder?.SpawnBiomeTransition(chunk.overridBeckGround, new Vector3(0, 0, zPos));
         }
-
 
         if (chunk == null || chunk.chunkPrefab == null)
         {
@@ -340,15 +334,20 @@ public class LVLBuilder : MonoBehaviour
 
         ApplyBiomeMaterial(chunkObj);
 
-        activeSegments.Enqueue(new TileSegment(zPos, 1) // TileSegment è una struct che contiene le info di ogni segmento generato in questo caso il chunk è considerato come un singolo segmento con lunghezza 1
+        activeSegments.Enqueue(new TileSegment(zPos, 1)
         {
-            FloorObject = chunkObj, // l'oggetto pavimento del segmento è il chunk stesso
-            Biome = currentBiome    // assegno il bioma corrente al segmento
+            FloorObject = chunkObj,
+            Biome = currentBiome
         });
 
-        lastGeneratedZ += tileLength * chunk.lengthInTiles; // Aggiorno la posizione Z dell'ultima tile generata in base alla lunghezza del chunk così da saltare le tile che il chunk occupa
-        segmentCounter++;// Incremento il contatore dei segmenti generati
+        // Avanza di N tile
+        lastGeneratedZ += tileLength * chunk.lengthInTiles;
+        segmentCounter++;
+
+        // 🔧 FIX: riallinea anche il cursore del background
+        backgroundBuilder?.SyncBackgroundTo(lastGeneratedZ);
     }
+
 
     ChunkData SelectWeightedChunk(List<ChunkData> chunks) // E' un metodo per gestire la probabilità di spawnare i chunk in base a un peso assegnato a ciascun chunk
     {

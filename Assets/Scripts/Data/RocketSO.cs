@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ShieldPowerUp", menuName = "ScriptableObjects/PowerUpData/Rocket")]
 public class RocketSO : CollectableData
 {
-    [SerializeField] private float rocketDistance = 1000f;
+    public Vector3 fly = new Vector3(0,2,0);
+    public float timer = 5;
 
     public override void Use(GameObject obj)
     {
-        if (obj == null) return;
-        Vector3 rocketVector = obj.transform.forward.normalized * rocketDistance + (Vector3.up * 2);
-        obj.transform.position += rocketVector;
+        if (timer > Time.time)
+        {
+            obj.transform.position += fly;
+        }
     }
 }

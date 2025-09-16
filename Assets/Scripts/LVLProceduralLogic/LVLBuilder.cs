@@ -50,10 +50,10 @@ public class LVLBuilder : MonoBehaviour
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
     private int difficultyLevel = 0;
 
+    private int skipNextBGSpawnFor = 0;
 
-
-    private bool skipNextBGSpawn = false;
-    private bool suppressNextBG = false;
+    //private bool skipNextBGSpawn = false;
+    //private bool suppressNextBG = false;
 
     public int NumberOfLanes => numberOfLanes;
     public float LaneWidth => laneWidth;
@@ -130,7 +130,11 @@ public class LVLBuilder : MonoBehaviour
 
     void GenerateAhead() // genera nuove tile davanti al giocatore o il chunk se necessario
     {
-        while (lastGeneratedZ < player.position.z + generateDistance) //se la z dell'ultima tile generata è minore della z del giocatore + distanza di generazione
+        float playerZ = player.position.z;
+        float targetZ = playerZ + generateDistance;
+
+        int safeguard = 0;
+        while (lastGeneratedZ < player.position.z + generateDistance && safeguard < 100)
         {
             if (segmentCounter > 0 && segmentCounter % tilesPerChunk == 0) // ogni tot segmenti genero un chunk
             {
@@ -141,6 +145,11 @@ public class LVLBuilder : MonoBehaviour
                 GenerateTileSegment(lastGeneratedZ);
             }
 
+            safeguard++; // sempre, così il while non rischia di loopare se qualcosa non incrementa lastGeneratedZ
+        }
+        if (safeguard >= 100)
+        {
+            Debug.LogWarning("[LVLBuilder] Safeguard tripped in GenerateAhead (100 iterations). Check generation logic.");
         }
 
 
@@ -186,45 +195,68 @@ public class LVLBuilder : MonoBehaviour
 
         if (otherBiomes.Count == 0) return;
 
-        BiomeData oldBiome = currentBiome; // quello che stiamo lasciando
-        currentBiome = otherBiomes[Random.Range(0, otherBiomes.Count)];
-        nextBiomeChangeZ += biomeChangeDistance;
+        BiomeData oldBiome = currentBiome;
+        BiomeData newBiome = otherBiomes[Random.Range(0, otherBiomes.Count)];
 
+        // CALCOLA LE POSIZIONI DELLE TRANSIZIONI IN ANTICIPO (posizioni di INIZIO)
+        float exitTransitionZ = lastGeneratedZ;      // inizio exit
+        float exitLength = (oldBiome.transitionEnd && oldBiome.transitionEnd.worldLength > 0)
+            ? oldBiome.transitionEnd.worldLength : tileLength;
+
+        float entryTransitionZ = exitTransitionZ + (oldBiome.transitionEnd ? exitLength : 0f); // inizio entry
+        float entryLength = 0f;
+
+        // Spawna la transizione di uscita PRIMA del cambio bioma
+        if (oldBiome.transitionEnd != null)
+        {
+            backgroundBuilder?.SpawnBiomeTransition(oldBiome.transitionEnd, new Vector3(0, 0, exitTransitionZ));
+        }
+
+        // Cambia bioma
+        currentBiome = newBiome;
+        nextBiomeChangeZ += biomeChangeDistance;
         ApplyBiomeEnvironment();
         difficultyLevel++;
 
-
-
-        // Exit del vecchio bioma → ultima tile
-        if (oldBiome.transitionEnd != null)
-        {
-            Vector3 exitPos = new Vector3(0, 0, lastGeneratedZ - tileLength);
-            backgroundBuilder?.SpawnBiomeTransition(oldBiome.transitionEnd, exitPos);
-
-            suppressNextBG = true;
-        }
-
-        // Entry del nuovo bioma → prima tile
+        // Spawna la transizione di entrata del NUOVO bioma
         if (currentBiome.transitionStart != null)
         {
-            Vector3 entryPos = new Vector3(0, 0, lastGeneratedZ);
-            backgroundBuilder?.SpawnBiomeTransition(currentBiome.transitionStart, entryPos);
+            entryLength = (currentBiome.transitionStart.worldLength > 0)
+                ? currentBiome.transitionStart.worldLength : tileLength;
+
+            backgroundBuilder?.SpawnBiomeTransition(currentBiome.transitionStart, new Vector3(0, 0, entryTransitionZ));
         }
 
-        skipNextBGSpawn = true;
-        backgroundBuilder?.ResetBackgroundZ(lastGeneratedZ);
+        // Zona totale occupata dalle transizioni [exitStart, transitionsEnd)
+        float transitionsEndZ = entryTransitionZ + entryLength;
 
-        if (showDebugInfo) PrintDebugInfo();
+   
+        skipNextBGSpawnFor = Mathf.Max(1, Mathf.CeilToInt((transitionsEndZ - exitTransitionZ) / tileLength));
+
+        // IMPORTANTE: NON chiamare ResetBackgroundZ qui!
+        // Le SpawnBiomeTransition hanno già avanzato _lastBackgroundZ alla fine della loro mesh.
+
+        if (showDebugInfo)
+        {
+            Debug.Log($"[LVLBuilder] Cambio bioma da {oldBiome.biomeType} a {currentBiome.biomeType}");
+            Debug.Log($"[LVLBuilder] Exit Z: {exitTransitionZ} (len {exitLength}), Entry Z: {entryTransitionZ} (len {entryLength}), End Z: {transitionsEndZ}");
+            Debug.Log($"[LVLBuilder] Saltando {skipNextBGSpawnFor} tile di background");
+            PrintDebugInfo();
+        }
     }
+
 
     private bool IsBiomeBoundaryTile(float zPos)
     {
-        // Prima tile del bioma
-        if (Mathf.Approximately(zPos, nextBiomeChangeZ - biomeChangeDistance))
+        // Controlla se siamo vicini a una transizione di bioma
+        float distanceToNextBiome = nextBiomeChangeZ - zPos;
+
+        // Prima tile del nuovo bioma (appena dopo la transizione)
+        if (distanceToNextBiome <= tileLength && distanceToNextBiome > 0)
             return true;
 
-        // Ultima tile del bioma (quella prima dell'exit)
-        if (Mathf.Approximately(zPos, nextBiomeChangeZ - tileLength))
+        // Ultime tile prima della transizione
+        if (distanceToNextBiome <= tileLength * 2 && distanceToNextBiome > tileLength)
             return true;
 
         return false;
@@ -474,15 +506,18 @@ public class LVLBuilder : MonoBehaviour
             SpawnCoinAtLane(segment, chosenLane, zPosition);
         }
 
-        if (!isBoundary && !skipNextBGSpawn)
+        // Riempie il background fino alla nuova fine generata
+        if (!isBoundary && skipNextBGSpawnFor <= 0)
         {
-            backgroundBuilder?.SpawnBackgroundAt(currentBiome, zPosition);
+            float targetZ = lastGeneratedZ + tileLength;
+            backgroundBuilder?.FillBackgroundUpTo(currentBiome, targetZ);
         }
         else
         {
-            if (skipNextBGSpawn) skipNextBGSpawn = false;
-            if (suppressNextBG) suppressNextBG = false;
+            if (skipNextBGSpawnFor > 0)
+                skipNextBGSpawnFor--;
         }
+
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
         segmentCounter++;
@@ -540,4 +575,3 @@ public class LVLBuilder : MonoBehaviour
     }
 
 }
-

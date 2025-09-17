@@ -10,5 +10,6 @@ public class ShieldSO : CollectableData
     {
         var life = obj.GetComponent<LifeController>();
         life.RestoreShield(amount);
+        base.Use(obj);
     }
 }

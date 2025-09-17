@@ -10,13 +10,12 @@ public class PickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (powerUpData != null)
+            PlayerInventory playerInventory = other.GetComponent<PlayerInventory>();
+            if (playerInventory != null)
             {
-                PlayerInventory.Instance.AddItem(powerUpData);
-                UIinventory ui = FindObjectOfType<UIinventory>();
-                if (ui != null)
-                    ui.RefreshCollectables();
+                playerInventory.AddItem(powerUpData);
             }
+
             PoolManager.Instance.Despawn(gameObject);
         }
     }

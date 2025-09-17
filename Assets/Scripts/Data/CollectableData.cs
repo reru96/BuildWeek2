@@ -24,6 +24,10 @@ public class CollectableData : ScriptableObject,IWeighted
 
     public virtual void Use(GameObject obj)
     {
-        
+        PlayerInventory inventory = obj.GetComponent<PlayerInventory>();
+        if (inventory != null)
+        {
+            inventory.RemoveItem(this); 
+        }
     }
 }

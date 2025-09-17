@@ -10,6 +10,8 @@ public class ForceFieldSO : CollectableData
 
     public override void Use(GameObject obj)
     {
+        base.Use(obj);
+
         if (obj == null) return;
 
         

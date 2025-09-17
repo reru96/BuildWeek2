@@ -20,62 +20,73 @@ public class ShopManager : MonoBehaviour
     private HashSet<CollectableData> spawnedItems = new HashSet<CollectableData>();
     private HashSet<PermanentBoostObject> spawnedBoosts = new HashSet<PermanentBoostObject>();
 
-
     private void Start()
     {
-        LoadCollectables(collectables);
-        LoadBoost(permanentBoosts);
+        
+        LoadCollectables();
+        LoadBoosts();
+
+ 
+        BoostManager.Instance.InitializeBoostsFromSave(permanentBoosts);
 
         CreateShopButtons();
     }
 
     private void CreateShopButtons()
     {
-        foreach (CollectableData c in collectables)
+
+        foreach (var c in collectables)
         {
             if (c == null || spawnedItems.Contains(c)) continue;
-
-            GameObject buttonObj = Instantiate(buttonCollectablePrefab, shopContainer);
-            buttonObj.transform.localScale = Vector3.one;
-
-            Button btn = buttonObj.GetComponent<Button>();
-            UIButtonShopItem uiButton = buttonObj.GetComponent<UIButtonShopItem>();
-
-            if (uiButton == null)
-            {
-                Debug.LogError("Prefab buttonPrefab non contiene UIButtonShopItem!");
-                Destroy(buttonObj);
-                continue;
-            }
-
-            uiButton.SetData(c);
-            btn.onClick.AddListener(() => BuyCollectable(c, uiButton));
-
+            CreateCollectableButton(c);
             spawnedItems.Add(c);
         }
 
-        foreach (PermanentBoostObject b in permanentBoosts)
+  
+        foreach (var b in permanentBoosts)
         {
             if (b == null || spawnedBoosts.Contains(b)) continue;
-
-            GameObject buttonObj = Instantiate(buttonBoostPrefab, shopContainer);
-            buttonObj.transform.localScale = Vector3.one;
-
-            Button btn = buttonObj.GetComponent<Button>();
-            UIButtonShopItem uiButton = buttonObj.GetComponent<UIButtonShopItem>();
-
-            if (uiButton == null)
-            {
-                Debug.LogError("Prefab buttonPrefab non contiene UIButtonShopItem!");
-                Destroy(buttonObj);
-                continue;
-            }
-
-            uiButton.SetDataBoost(b);
-            btn.onClick.AddListener(() => BuyBoost(b, uiButton));
-
+            CreateBoostButton(b);
             spawnedBoosts.Add(b);
         }
+    }
+
+    private void CreateCollectableButton(CollectableData collectable)
+    {
+        GameObject buttonObj = Instantiate(buttonCollectablePrefab, shopContainer);
+        buttonObj.transform.localScale = Vector3.one;
+
+        Button btn = buttonObj.GetComponent<Button>();
+        UIButtonShopItem uiButton = buttonObj.GetComponent<UIButtonShopItem>();
+
+        if (uiButton == null)
+        {
+            Debug.LogError("Prefab buttonCollectablePrefab non contiene UIButtonShopItem!");
+            Destroy(buttonObj);
+            return;
+        }
+
+        uiButton.SetData(collectable);
+        btn.onClick.AddListener(() => BuyCollectable(collectable, uiButton));
+    }
+
+    private void CreateBoostButton(PermanentBoostObject boost)
+    {
+        GameObject buttonObj = Instantiate(buttonBoostPrefab, shopContainer);
+        buttonObj.transform.localScale = Vector3.one;
+
+        Button btn = buttonObj.GetComponent<Button>();
+        UIButtonShopItem uiButton = buttonObj.GetComponent<UIButtonShopItem>();
+
+        if (uiButton == null)
+        {
+            Debug.LogError("Prefab buttonBoostPrefab non contiene UIButtonShopItem!");
+            Destroy(buttonObj);
+            return;
+        }
+
+        uiButton.SetDataBoost(boost);
+        btn.onClick.AddListener(() => BuyBoost(boost, uiButton));
     }
 
     public void BuyCollectable(CollectableData collectable, UIButtonShopItem uiButton)
@@ -83,18 +94,20 @@ public class ShopManager : MonoBehaviour
         if (!collectable.shopped && CoinManager.Instance.SpendCoins(collectable.cost))
         {
             collectable.shopped = true;
-            SaveCollectables(collectables);
+            SaveCollectables();
             uiButton.SetData(collectable);
         }
 
-        PlayerInventory.Instance.AddItem(collectable);
-        UIinventory.RefreshCollectables();
+        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        if (playerInventory != null)
+        {
+            playerInventory.AddItem(collectable);
+            UIinventory.RefreshCollectables();
+        }
     }
 
-   
     public void BuyBoost(PermanentBoostObject boost, UIButtonShopItem uiButton)
     {
-       
         if (boost.currentLevel >= boost.maxLevel)
         {
             Debug.Log($"{boost.nome} è già al livello massimo!");
@@ -103,15 +116,14 @@ public class ShopManager : MonoBehaviour
 
         if (CoinManager.Instance.SpendCoins(boost.cost))
         {
-            boost.GrowLevel(); 
+            boost.GrowLevel();
             uiButton.SetDataBoost(boost);
-            SaveBoost(permanentBoosts);
+            SaveBoosts();
+            BoostManager.Instance.ApplyBoost(boost);
         }
-       
-        PlayerInventory.Instance.AddBoost(boost);
     }
 
-    public void SaveCollectables(List<CollectableData> collectables)
+    private void SaveCollectables()
     {
         SaveData data = SaveManager.Load();
         data.collectables.Clear();
@@ -122,36 +134,36 @@ public class ShopManager : MonoBehaviour
         SaveManager.Save(data);
     }
 
-    public void SaveBoost(List<PermanentBoostObject> boosts)
+    private void SaveBoosts()
     {
-
         SaveData data = SaveManager.Load();
-
         data.boosts.Clear();
-        foreach (var b in boosts)
+
+        foreach (var b in permanentBoosts)
         {
-            BoostSaveData bData = new BoostSaveData();
-            bData.boostName = b.nome; 
-            bData.currentLevel = b.currentLevel;
-            data.boosts.Add(bData);
+            data.boosts.Add(new BoostSaveData
+            {
+                boostName = b.nome,
+                currentLevel = b.currentLevel
+            });
         }
 
         SaveManager.Save(data);
     }
 
-    public void LoadCollectables(List<CollectableData> collectables)
+    private void LoadCollectables()
     {
         SaveData data = SaveManager.Load();
-
         for (int i = 0; i < collectables.Count && i < data.collectables.Count; i++)
+        {
             collectables[i].shopped = data.collectables[i];
+        }
     }
 
-    public void LoadBoost(List<PermanentBoostObject> boosts)
+    private void LoadBoosts()
     {
         SaveData data = SaveManager.Load();
-
-        foreach (var b in boosts)
+        foreach (var b in permanentBoosts)
         {
             BoostSaveData bData = data.boosts.Find(x => x.boostName == b.nome);
             if (bData != null)
@@ -160,7 +172,6 @@ public class ShopManager : MonoBehaviour
                 b.RestoreBoostState();
             }
         }
-
-        PlayerInventory.Instance.RestoreBoosts(boosts);
     }
+
 }

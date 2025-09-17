@@ -212,9 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3f4ea0aae3925418921edf8e8d0049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryContainer: {fileID: 0}
-  inventorySlotPrefab: {fileID: 1838919552725272550, guid: 292d68ac2cb21c74790a3cb67973c54f,
-    type: 3}
 --- !u!143 &7298274535606815416
 CharacterController:
   m_ObjectHideFlags: 0
@@ -259,6 +256,9 @@ MonoBehaviour:
   maxShield: 0
   currentShield: 0
   death: 4
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &3823573793860143598
 Animator:
   serializedVersion: 5
@@ -309,8 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98a11ec943eb6a46b1c697cf5e097bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3823573793860143598}
   playerController: {fileID: 5904630489587065824}
+  animator: {fileID: 3823573793860143598}
 --- !u!1001 &5766291892747886537
 PrefabInstance:
   m_ObjectHideFlags: 0

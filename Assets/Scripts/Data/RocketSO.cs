@@ -12,9 +12,12 @@ public class RocketSO : CollectableData
 
     public override void Use(GameObject obj)
     {
+        base.Use(obj);
+
         if (timer > Time.time)
         {
             obj.transform.position += fly;
         }
+
     }
 }

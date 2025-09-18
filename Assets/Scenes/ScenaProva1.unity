@@ -701,7 +701,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
   biomeChangeDistance: 100
   currentBiome: {fileID: 0}
-  obstacleChance: 0.2
+  obstacleChance: 0.43
   enemyChance: 0.15
   powerupChance: 0.1
   tilesPerChunk: 50
@@ -2242,7 +2242,7 @@ PrefabInstance:
     - target: {fileID: 8452473650864024609, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -112.999756
+      value: -113
       objectReference: {fileID: 0}
     - target: {fileID: 8452473650864024609, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
@@ -2318,6 +2318,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 416056939709285759, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: lifeController
+      value: 
+      objectReference: {fileID: 8700127229136854446}
     - target: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: m_Name
@@ -2381,7 +2386,7 @@ PrefabInstance:
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: maxShield
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}

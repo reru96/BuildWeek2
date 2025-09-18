@@ -6,6 +6,11 @@ public class BoostManager : Singleton<BoostManager>
 {
     private List<PermanentBoostObject> activeBoosts = new List<PermanentBoostObject>();
 
+    public void Start()
+    {
+        Debug.Log("Quanti boost:" + activeBoosts.Count);
+    }
+
     public void InitializeBoostsFromSave(List<PermanentBoostObject> allBoosts)
     {
         activeBoosts.Clear();

@@ -10,7 +10,8 @@ public class UIMenu : MonoBehaviour
     [SerializeField] private string startScene;
     [SerializeField] private UIScoreManager uiScoreManager;
     [SerializeField] private GameObject leaderboardPanel;
-    [SerializeField] private GameObject shopMenu;   
+    [SerializeField] private GameObject shopMenu;
+    
 
     [Header("Riferimenti Player")]
     [SerializeField] private LifeController playerLife;
@@ -49,7 +50,7 @@ public class UIMenu : MonoBehaviour
 
     public void GoToShop()
     {
-        shopMenu.SetActive(true);
+        shopMenu.SetActive(true);  
     }
     public void GoToMainMenu()
     {
@@ -64,7 +65,15 @@ public class UIMenu : MonoBehaviour
     }
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
+        if(isGameOver)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        { 
+            Time.timeScale = 1f;
+        }
+            
         shopMenu.SetActive(false);
     }
    

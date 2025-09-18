@@ -328,7 +328,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 200, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1884,7 +1884,7 @@ PrefabInstance:
     - target: {fileID: 4590751822191597252, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3000
       objectReference: {fileID: 0}
     - target: {fileID: 4590751822191597252, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -1970,6 +1970,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -745
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106283316189023776, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641838610439566229, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -2100,6 +2105,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -18.767
+      objectReference: {fileID: 0}
+    - target: {fileID: 3046268027586915916, guid: 2840c69ba839b554aa46e8257a7c3687,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3701233365944137942, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
@@ -2358,12 +2368,12 @@ PrefabInstance:
     - target: {fileID: 8452473650864024609, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -504.532
+      value: -249
       objectReference: {fileID: 0}
     - target: {fileID: 8452473650864024609, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -63.3
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 8567299785880645965, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}

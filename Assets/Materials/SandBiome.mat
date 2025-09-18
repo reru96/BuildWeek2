@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e6118bcc676c7ae4c984366ce37f6c55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -113,7 +113,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _MetallicFloat: 0
-    - _Nonrompeteilcazzosucomerinominolecose: 0.00001
+    - _Nonrompeteilcazzosucomerinominolecose: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0

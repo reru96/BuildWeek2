@@ -74,16 +74,16 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
-        // Calcola posizione target nella corsia
+     
         float midLane = (totalLanes - 1) / 2f;
         float targetX = (currentLane - midLane) * laneWidth;
         Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
 
-        // movimento fluido tra corsie
+     
         float diffX = targetPosition.x - transform.position.x;
         moveDirection.x = diffX * laneChangeSpeed;
 
-        // Salto e gravità
+      
         if (controller.isGrounded && !isSliding && verticalVelocity <= 0f)
             verticalVelocity = -1f;
         else
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = verticalVelocity;
         moveDirection.z = forwardSpeed;
 
-        // Muove il player
+      
         controller.Move(moveDirection * Time.deltaTime);
     }
 
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
     }
     void UpdateState()
     {
-        // Se il player non sta scivolando, non è in aria e non si sposta lateralmente
+  
         if (!isSliding && controller.isGrounded && Mathf.Approximately(moveDirection.x, 0f))
             CurrentState = AnimationState.RUN;
 

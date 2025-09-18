@@ -1,48 +1,34 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInventory : Singleton<PlayerInventory>
+public class PlayerInventory : MonoBehaviour
 {
-
     private List<CollectableData> collectedItems = new List<CollectableData>();
-    private List<PermanentBoostObject> collectedBoosts = new List<PermanentBoostObject>();
 
-    protected override bool ShouldBeDestroyOnLoad() => true;
+  
+    public event Action OnInventoryChanged;
 
     public void AddItem(CollectableData item)
     {
         if (item == null || collectedItems.Contains(item)) return;
         collectedItems.Add(item);
+        OnInventoryChanged?.Invoke();
     }
 
-    public void AddBoost(PermanentBoostObject boost)
+    public void RemoveItem(CollectableData item)
     {
-        if (boost == null || collectedBoosts.Contains(boost)) return;
-
-        collectedBoosts.Add(boost);
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-            boost.PassiveEffect(player);
+        if (item == null) return;
+        collectedItems.Remove(item);
+        OnInventoryChanged?.Invoke();
     }
 
-    public void RestoreBoosts(List<PermanentBoostObject> allBoosts)
+    public void ClearCollectables()
     {
-        collectedBoosts.Clear();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) return;
-
-        foreach (var boost in allBoosts)
-        {
-            if (boost.currentLevel > 0)
-            {
-                collectedBoosts.Add(boost);
-                boost.PassiveEffect(player);
-            }
-        }
+        collectedItems.Clear();
+        OnInventoryChanged?.Invoke();
     }
 
     public List<CollectableData> GetCollectedItems() => collectedItems;
-    public List<PermanentBoostObject> GetCollectedBoosts() => collectedBoosts;
 }

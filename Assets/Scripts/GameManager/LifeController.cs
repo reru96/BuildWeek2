@@ -67,6 +67,7 @@ public class LifeController : MonoBehaviour
     {
         if (amount <= 0) return;
         currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+        Debug.Log("Scudi attivi:" + currentShield);
     }
 
  

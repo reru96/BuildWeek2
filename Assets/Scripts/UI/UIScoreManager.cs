@@ -63,14 +63,14 @@ public class UIScoreManager : MonoBehaviour
             scoreText.text = $": {score}\n: x{multiplier:F2}";
     }
 
-    /// Aggiunge lo score corrente alla classifica e aggiorna la leaderboard
+   
     public void SaveAndUpdateLeaderboard()
     {
         scoreManager.AddScore(score);
 
-        // Salva su file JSON il punteggio migliore
+      
         SaveData data = SaveManager.Load();
-        data.score = score; // aggiorno con ultimo score
+        data.score = score; 
         SaveManager.Save(data);
 
         UpdateLeaderboard();

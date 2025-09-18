@@ -246,12 +246,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectables:
-  - {fileID: 11400000, guid: 88792a7e4acc6f74a8dea381888bbded, type: 2}
-  - {fileID: 11400000, guid: d1dfa77f449ef8d4b8d653fca743420f, type: 2}
-  - {fileID: 11400000, guid: 2201b87b71e21be43a5b4ab9f6716ddd, type: 2}
+  - {fileID: 11400000, guid: ea10f1b7233a00946ba4eece53d0b010, type: 2}
+  - {fileID: 11400000, guid: 433e206c2cf19304f9b241b401491db2, type: 2}
+  - {fileID: 11400000, guid: 2b3a89e747953d54d8fbb0e440fbdb22, type: 2}
+  permanentBoosts:
+  - {fileID: 11400000, guid: 00e81a0b7c405c24fbf099f56ed2cbb4, type: 2}
   shopContainer: {fileID: 2608606600991217541}
-  buttonPrefab: {fileID: 485556776172421058, guid: dbe7726114220644087c68081fccd333,
+  buttonCollectablePrefab: {fileID: 485556776172421058, guid: dbe7726114220644087c68081fccd333,
     type: 3}
+  buttonBoostPrefab: {fileID: 485556776172421058, guid: dbe7726114220644087c68081fccd333,
+    type: 3}
+  UIinventory: {fileID: 0}
 --- !u!1 &3229667813591972688
 GameObject:
   m_ObjectHideFlags: 0

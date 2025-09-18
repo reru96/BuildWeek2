@@ -15,11 +15,11 @@ MonoBehaviour:
   namePowerUp: Shield
   prefab: {fileID: 244396943343182756, guid: 0b8ca129cbc91c14e8e4f275a0d57938, type: 3}
   weight: 1
-  cost: 0
+  cost: 1
   minDifficultyLevel: 0
   maxDifficultyLevel: 0
   icon: {fileID: 21300000, guid: 422bcbcffa7fbd34cb66677a8e7bb2a5, type: 3}
   maxDifficult: 0
   minDifficult: 0
-  shopped: 1
+  shopped: 0
   amount: 5

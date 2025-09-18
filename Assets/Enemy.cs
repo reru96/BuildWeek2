@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Obstacle
 {
 
-    [SerializeField] private int amount = 1;
+    [SerializeField] protected int amount = 1;
     [SerializeField] private float speed = 1;
     [SerializeField] private float offsetYaw = 1;
    
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
-    public void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         
         if(collision.collider.CompareTag("Player"))
@@ -30,14 +30,11 @@ public class Enemy : MonoBehaviour
             if(life != null)
             { 
                 life.TakeDamage(amount);
+                gameObject.SetActive(false);
+                PoolManager.Instance.Despawn(gameObject);
 
             }
-            else
-            {
-                Debug.Log("LifeController non trovato sul Player");
-            }
-            
-           
+              
         }
        
     }

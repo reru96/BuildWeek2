@@ -833,8 +833,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
   biomeChangeDistance: 100
   currentBiome: {fileID: 0}
-  obstacleChance: 0.43
-  enemyChance: 0.15
+  obstacleChance: 0.4
+  enemyChance: 0.5
   powerupChance: 0.1
   tilesPerChunk: 50
   availableChunks:

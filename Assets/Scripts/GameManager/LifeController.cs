@@ -63,10 +63,10 @@ public class LifeController : MonoBehaviour
         currentHp = Mathf.Clamp(currentHp + amount, 0, maxHp);
     }
 
-    public void RestoreShield(int amount)
+    public void AddShield(int amount)
     {
         if (amount <= 0) return;
-        currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+        currentShield += amount;
         Debug.Log("Scudi attivi:" + currentShield);
     }
 

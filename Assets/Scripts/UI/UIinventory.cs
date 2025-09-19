@@ -50,6 +50,7 @@ public class UIinventory : MonoBehaviour
             Button btn = slot.GetComponent<Button>();
             if (btn != null)
             {
+                var currentItem = item;
                 btn.onClick.AddListener(() => item.Use(player));
             }
         }

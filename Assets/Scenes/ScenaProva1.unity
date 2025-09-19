@@ -1781,6 +1781,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 471808552}
+    - target: {fileID: 1308402719847080731, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 2001867017791293516, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
       propertyPath: m_Name
@@ -1884,7 +1889,7 @@ PrefabInstance:
     - target: {fileID: 4590751822191597252, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4590751822191597252, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -2534,6 +2539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: maxHp
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}

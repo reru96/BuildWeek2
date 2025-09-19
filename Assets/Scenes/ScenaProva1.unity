@@ -1786,7 +1786,7 @@ PrefabInstance:
     - target: {fileID: 1308402719847080731, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2001867017791293516, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -2462,6 +2462,11 @@ PrefabInstance:
       propertyPath: lifeController
       value: 
       objectReference: {fileID: 8700127229136854446}
+    - target: {fileID: 572613781600922567, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: laneChangeSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: m_Name
@@ -2607,11 +2612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 10
-  laneChangeSpeed: 10
-  jumpForce: 8
-  gravity: 0
-  slideDuration: 0.7
 --- !u!1001 &8864465329139557512
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class PoolManager : Singleton<PoolManager>
         if (!_pool.ContainsKey(prefab))
             _pool[prefab] = new Queue<GameObject>();
 
+        if (prefab.GetComponent<CoinPickUp>() != null)
+            count *= 50; 
+
         for (int i = 0; i < count; i++)
         {
             var inst = Instantiate(prefab, Vector3.zero, Quaternion.identity, parent);

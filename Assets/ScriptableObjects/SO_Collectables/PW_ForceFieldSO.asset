@@ -22,5 +22,6 @@ MonoBehaviour:
   maxDifficult: 0
   minDifficult: 0
   shopped: 0
-  forceStrength: 10
   radius: 5
+  forceField: {fileID: 1799019779132808453, guid: 1e540d660e5117e4b8c65668bb0b9a8d,
+    type: 3}

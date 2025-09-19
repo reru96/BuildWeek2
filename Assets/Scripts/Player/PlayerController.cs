@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private float jumpForce = 8f;
     [SerializeField]private float gravity = -20f;
     [SerializeField]private float slideDuration = 0.7f;
+    [SerializeField]private float delayRun = 0.2f;
 
     private CharacterController controller;
     private Vector3 moveDirection;
@@ -101,8 +102,22 @@ public class PlayerController : MonoBehaviour
         int previousLane = currentLane;
         currentLane = Mathf.Clamp(currentLane + direction, 0, totalLanes - 1);
 
-        if (currentLane < previousLane) CurrentState = AnimationState.MOVELEFT;
-        else if (currentLane > previousLane) CurrentState = AnimationState.MOVERIGHT;
+        if (currentLane < previousLane)
+        {
+            CurrentState = AnimationState.MOVELEFT;
+            StartCoroutine(ReturnToRun(delayRun)); 
+        }
+        else if (currentLane > previousLane)
+        {
+            CurrentState = AnimationState.MOVERIGHT;
+            StartCoroutine(ReturnToRun(delayRun));
+        }
+    }
+
+    private IEnumerator ReturnToRun(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        CurrentState = AnimationState.RUN;
     }
 
     public IEnumerator Slide()

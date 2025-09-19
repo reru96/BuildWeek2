@@ -10,6 +10,8 @@ public class ShieldSO : CollectableData
     {
         var life = obj.GetComponent<LifeController>();
         life.RestoreShield(amount);
+        Debug.Log("MaxShield: " + life.GetMaxShield());
+        Debug.Log("currentShield: " + life.GetShield());
         base.Use(obj);
     }
 }

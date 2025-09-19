@@ -222,6 +222,13 @@ public class LVLBuilder : MonoBehaviour
         AudioManager.Instance.SetMusicVolume(1f);
         difficultyLevel++;
 
+        // gestione cambio skybox
+        if (currentBiome.skyboxMaterial != null)
+        {
+            RenderSettings.skybox = currentBiome.skyboxMaterial;
+            DynamicGI.UpdateEnvironment();
+        }
+
         // Spawna la transizione di entrata del NUOVO bioma
         if (currentBiome.transitionStart != null)
         {

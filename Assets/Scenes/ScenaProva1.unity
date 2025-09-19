@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -699,10 +699,12 @@ MonoBehaviour:
   availableBiomes:
   - {fileID: 11400000, guid: 77d27526137aeca4699da2c2feb4c44f, type: 2}
   - {fileID: 11400000, guid: e5a922be32feb97428958ce84476c741, type: 2}
+  - {fileID: 11400000, guid: dd1954489ec137947a08a7ea1a50fd1a, type: 2}
+  - {fileID: 11400000, guid: 7ef8ed34f9a145846a672ea41d8952b0, type: 2}
   biomeChangeDistance: 100
   currentBiome: {fileID: 0}
-  obstacleChance: 0.43
-  enemyChance: 0.15
+  obstacleChance: 0
+  enemyChance: 0
   powerupChance: 0.1
   tilesPerChunk: 50
   availableChunks:
@@ -2563,7 +2565,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8700127229136854455}
   m_SourcePrefab: {fileID: 100100000, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
 --- !u!1 &8700127229136854445 stripped
 GameObject:
@@ -2589,6 +2595,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8700127229136854444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8700127229136854455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700127229136854445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 10
+  laneChangeSpeed: 10
+  jumpForce: 8
+  gravity: 0
+  slideDuration: 0.7
 --- !u!1001 &8864465329139557512
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -29,9 +29,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1c54b087c3e3df46849c16926ae5500, type: 2}
   backgroundTiles:
   - {fileID: 11400000, guid: 80736d96550e6f84bbfeeaec9dc82bd7, type: 2}
-  transitionStart: {fileID: 11400000, guid: 9599d59408579e1449c419d383a79825, type: 2}
-  transitionEnd: {fileID: 11400000, guid: 16d825fd9d5da494abd6627df87317e1, type: 2}
+  transitionStart: {fileID: 11400000, guid: 5f23c34d3f9f6424f9790d2163d4ba3a, type: 2}
+  transitionEnd: {fileID: 11400000, guid: d075e886a1936ae4099eee2978a2bb63, type: 2}
   tileMaterial: {fileID: 2100000, guid: 552777a22b443e9499d1d38de101e57a, type: 2}
   biomeMusic: DesertSound
   fogColor: {r: 0.8773585, g: 0.30210927, b: 0.30210927, a: 0}
   ambientLightColor: {r: 1, g: 0.47273552, b: 0.25943398, a: 0}
+  skyboxMaterial: {fileID: 2100000, guid: 833b566d3ef65fb4c879365d6cb2413d, type: 2}

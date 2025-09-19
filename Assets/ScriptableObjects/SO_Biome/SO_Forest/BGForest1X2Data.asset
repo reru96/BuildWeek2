@@ -16,3 +16,4 @@ MonoBehaviour:
   weight: 1
   lengthInTiles: 1
   side: 2
+  worldLength: 1

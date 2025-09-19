@@ -25,6 +25,6 @@ public class BiomeData : ScriptableObject
     public string biomeMusic;
     public Color fogColor;
     public Color ambientLightColor;
-
+    public Material skyboxMaterial;
 
 }

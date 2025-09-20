@@ -8,11 +8,13 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Animator animator;
+    [SerializeField] private LifeController life;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        life = GetComponent<LifeController>();
     }
 
     void Update()
@@ -27,5 +29,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("IsRunning", playerController.CurrentState == AnimationState.RUN ||
                                        playerController.CurrentState == AnimationState.MOVELEFT ||
                                        playerController.CurrentState == AnimationState.MOVERIGHT);
+
+        animator.SetBool("IsDead", life.GetState() == AnimationState.DEATH);
     }
 }

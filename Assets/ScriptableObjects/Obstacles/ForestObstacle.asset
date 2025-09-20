@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba0f2fe37f34584088d973d30627648, type: 3}
   m_Name: ForestObstacle
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5999060013625295521, guid: 82f51332ea52ac6468a17e44f8ef118e, type: 3}
+  prefab: {fileID: 6370298313574228322, guid: 45d54db94d8b7c74c871d1370c77936f, type: 3}
   weight: 10
   maxDifficult: 20
   minDifficult: 0

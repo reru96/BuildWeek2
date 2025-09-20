@@ -76,6 +76,11 @@ public class StartMenu : MonoBehaviour
         settingsMenu.SetActive(false);
     }
 
+    public void RollCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void OnExitGame()
     {
         Application.Quit();

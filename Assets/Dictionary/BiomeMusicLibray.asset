@@ -17,3 +17,7 @@ MonoBehaviour:
     musicKey: DesertSound
   - biomeName: ForestSound
     musicKey: ForestSound
+  - biomeName: DungeonSound
+    musicKey: DungeonSound
+  - biomeName: SnowLandSound
+    musicKey: SnowLandSound

@@ -50,7 +50,10 @@ public class UIMenu : MonoBehaviour
 
     public void GoToShop()
     {
-        shopMenu.SetActive(true);  
+        Time.timeScale = 0f;
+        shopMenu.SetActive(true);
+        leaderboardPanel.SetActive(false);
+        
     }
     public void GoToMainMenu()
     {
@@ -68,6 +71,7 @@ public class UIMenu : MonoBehaviour
         if(isGameOver)
         {
             Time.timeScale = 0f;
+            leaderboardPanel.SetActive(true);
         }
         else
         { 

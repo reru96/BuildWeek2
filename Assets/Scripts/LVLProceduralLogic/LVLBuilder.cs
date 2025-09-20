@@ -329,7 +329,7 @@ public class LVLBuilder : MonoBehaviour
         lastGeneratedZ += tileLength * chunk.lengthInTiles;
         segmentCounter++;
 
-        // 🔧 FIX: riallinea anche il cursore del background
+        // riallinea anche il cursore del background
         backgroundBuilder?.SyncBackgroundTo(lastGeneratedZ);
     }
 

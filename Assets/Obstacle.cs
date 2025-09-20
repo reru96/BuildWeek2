@@ -5,17 +5,20 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] protected int damage = 1000;
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected virtual void OnTriggerEnter(Collider other)
     {
 
-        if (collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            var life = collision.collider.GetComponent<LifeController>();
+            var life = other.GetComponent<LifeController>();
             if (life != null)
             {
                 life.TakeDamage(damage);
+       
+            }  
+            gameObject.SetActive(false);
 
-            }
+            PoolManager.Instance.Despawn(gameObject);
 
         }
 

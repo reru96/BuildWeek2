@@ -2079,7 +2079,11 @@ PrefabInstance:
     - {fileID: 1455753993191012899, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8700127229136854448}
   m_SourcePrefab: {fileID: 100100000, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
 --- !u!1 &8700127229136854445 stripped
 GameObject:
@@ -2105,6 +2109,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8700127229136854444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8700127229136854448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700127229136854445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 10
+  laneChangeSpeed: 10
+  jumpForce: 8
+  gravity: -20
+  slideDuration: 0.7
+  delayRun: 0.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

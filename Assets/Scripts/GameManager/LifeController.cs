@@ -21,8 +21,11 @@ public class LifeController : MonoBehaviour
 
     public UnityEvent OnDeath;
 
-    public enum DeathAction { None, Destroy, Disable, Die, SceneReload }
+    public enum DeathAction { None, Destroy, Disable, Die, SceneReload, Animation }
 
+    private AnimationState currentState = AnimationState.RUN;
+
+    public AnimationState GetState() => currentState;
     public int GetMaxHp() => maxHp;
     public int GetHp() => currentHp;
     public int GetShield() => currentShield;
@@ -89,6 +92,9 @@ public class LifeController : MonoBehaviour
         {
             case DeathAction.None:
                 break;
+            case DeathAction.Animation:
+                currentState = AnimationState.DEATH; 
+                break; 
             case DeathAction.Destroy:
                 Destroy(gameObject);
                 break;

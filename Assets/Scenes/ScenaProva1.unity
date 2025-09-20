@@ -704,8 +704,8 @@ MonoBehaviour:
   biomeChangeDistance: 100
   currentBiome: {fileID: 0}
   obstacleChance: 0
-  enemyChance: 0
-  powerupChance: 0.1
+  enemyChance: 1
+  powerupChance: 0
   tilesPerChunk: 50
   availableChunks:
   - {fileID: 11400000, guid: f516331b826be9841adc1901a0de3af2, type: 2}
@@ -1783,10 +1783,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 471808552}
+    - target: {fileID: 860180314854765060, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -544
+      objectReference: {fileID: 0}
     - target: {fileID: 1308402719847080731, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: -69
       objectReference: {fileID: 0}
     - target: {fileID: 2001867017791293516, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -1797,6 +1802,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981689529661003916, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -441
       objectReference: {fileID: 0}
     - target: {fileID: 3140730799951619866, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -1817,6 +1827,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -565
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157179084099474688, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -441
       objectReference: {fileID: 0}
     - target: {fileID: 3539666947329910171, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -1982,6 +1997,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183937083920849755, guid: 4c807ac17f54e754db6d5466aa998cc1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -441
       objectReference: {fileID: 0}
     - target: {fileID: 8641838610439566229, guid: 4c807ac17f54e754db6d5466aa998cc1,
         type: 3}
@@ -2257,6 +2277,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'CoinText '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931120567319506427, guid: 2840c69ba839b554aa46e8257a7c3687,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -42.1
       objectReference: {fileID: 0}
     - target: {fileID: 5066628114604214289, guid: 2840c69ba839b554aa46e8257a7c3687,
         type: 3}
@@ -2547,10 +2572,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5823647840539611815, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: life
+      value: 
+      objectReference: {fileID: 8700127229136854446}
+    - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: death
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: maxHp
-      value: 1000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
@@ -2570,11 +2605,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8700127229136854455}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
 --- !u!1 &8700127229136854445 stripped
 GameObject:
@@ -2600,18 +2631,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8700127229136854444}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8700127229136854455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8700127229136854445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8864465329139557512
 PrefabInstance:
   m_ObjectHideFlags: 0

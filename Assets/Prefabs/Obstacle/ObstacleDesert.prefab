@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7978917671152074452}
-  - component: {fileID: 7563549810563887555}
   - component: {fileID: 3988017420976121600}
   - component: {fileID: 6611921670847882358}
   - component: {fileID: 9153300619742827811}
@@ -36,22 +35,6 @@ Transform:
   - {fileID: 8549539941431870750}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7563549810563887555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2826247248700460305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 201299fb9a49fd0438a72b876fe0ac21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  amount: 1
-  speed: 1
-  offsetYaw: 1
 --- !u!54 &3988017420976121600
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -91,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd6ef29c7f0d0d44a1f6e38579e960c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1000
+  damage: 1
 --- !u!65 &9153300619742827811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,7 +112,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 598857a4dee85da469a94e7200d303fe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 598857a4dee85da469a94e7200d303fe,
         type: 3}

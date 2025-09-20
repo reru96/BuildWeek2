@@ -9,9 +9,9 @@ public class ForceFieldObj : MonoBehaviour
     {       
        Destroy(gameObject, timer);
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Obstacle"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
             other.gameObject.SetActive(false);
             PoolManager.Instance.Despawn(other.gameObject);

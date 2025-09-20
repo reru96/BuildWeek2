@@ -21,12 +21,12 @@ public class Enemy : Obstacle
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         
-        if(collision.collider.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            var life = collision.collider.GetComponent<LifeController>();
+            var life = collision.GetComponent<LifeController>();
             if(life != null)
             { 
                 life.TakeDamage(amount);

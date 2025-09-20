@@ -114,7 +114,6 @@ public class LVLBuilder : MonoBehaviour
 
         currentBiome = availableBiomes[0];
         AudioManager.Instance.PlayMusic(currentBiome.biomeMusic);
-        AudioManager.Instance.SetMusicVolume(1f);
         nextBiomeChangeZ = biomeChangeDistance;
 
         // Faccio in modo che le prime tile siano sempre sicure (bisogna pulirle dai nemici e ostacoli dopo)
@@ -219,7 +218,6 @@ public class LVLBuilder : MonoBehaviour
         currentBiome = newBiome;
         nextBiomeChangeZ += biomeChangeDistance;
         AudioManager.Instance.PlayMusicLater(newBiome.biomeMusic,delayMusic);
-        AudioManager.Instance.SetMusicVolume(1f);
         difficultyLevel++;
 
         // gestione cambio skybox

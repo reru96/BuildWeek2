@@ -24,6 +24,7 @@ public class AudioManager : Singleton<AudioManager>
     private Dictionary<string, AudioClip> audioDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, string> sceneMusicDict = new Dictionary<string, string>();
     private Dictionary<string, string> biomeDict = new Dictionary<string, string>();
+
     protected override bool ShouldBeDestroyOnLoad() => false;
 
     protected override void Awake()
@@ -67,8 +68,8 @@ public class AudioManager : Singleton<AudioManager>
         {
             foreach (var entry in biomeMusicLibrary.biomeMusics)
             {
-                if (!sceneMusicDict.ContainsKey(entry.biomeName))
-                    sceneMusicDict.Add(entry.biomeName, entry.musicKey);
+                if (!biomeDict.ContainsKey(entry.biomeName))
+                    biomeDict.Add(entry.biomeName, entry.musicKey);
             }
         }
 
@@ -78,6 +79,12 @@ public class AudioManager : Singleton<AudioManager>
 
     private void Start()
     {
+        SaveData saveData = SaveManager.Load();
+
+        SetMusicVolume(saveData.musicVolume);
+        SetSfxVolume(saveData.sfxVolume);
+
+
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
     protected override void OnDestroy()

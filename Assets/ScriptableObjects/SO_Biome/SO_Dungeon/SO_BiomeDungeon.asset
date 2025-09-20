@@ -30,7 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9c27a15dab0a8744a81d82c93182f99, type: 2}
   transitionStart: {fileID: 11400000, guid: abe40b013a17fec4b99c2c6092156cb2, type: 2}
   transitionEnd: {fileID: 11400000, guid: 011450236da764f48b396cccb9e687bb, type: 2}
-  tileMaterial: {fileID: 2100000, guid: f9a94780aa94b7c4985400ab0bedcdbb, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 5ffe771db4b6b1a4babbbb27cd18facc, type: 2}
   biomeMusic: DungeonSound
   fogColor: {r: 0.13723731, g: 0.96981126, b: 0.16813599, a: 0}
   ambientLightColor: {r: 0.73294836, g: 0.2688679, b: 1, a: 0}

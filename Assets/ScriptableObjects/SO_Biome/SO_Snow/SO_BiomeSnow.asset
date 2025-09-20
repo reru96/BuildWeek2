@@ -32,7 +32,7 @@ MonoBehaviour:
   transitionStart: {fileID: 11400000, guid: e310972e497e3e14bbe0cf6b244cc018, type: 2}
   transitionEnd: {fileID: 11400000, guid: bd8cbc67ae9943341a0ffd8728e07e26, type: 2}
   tileMaterial: {fileID: 2100000, guid: f9a94780aa94b7c4985400ab0bedcdbb, type: 2}
-  biomeMusic: ForestSound
+  biomeMusic: SnowLandSound
   fogColor: {r: 0.13723731, g: 0.96981126, b: 0.16813599, a: 0}
   ambientLightColor: {r: 0.73294836, g: 0.2688679, b: 1, a: 0}
   skyboxMaterial: {fileID: 2100000, guid: 5600ce4a61a14d841bdf16359210a5b8, type: 2}

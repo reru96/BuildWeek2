@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - key: StartMenu
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 430dd2ce5a87c1b4bafbe4464b898da7, type: 3}
   - key: DesertSound
     clip: {fileID: 8300000, guid: b3664c64db6f99545abc4c86db2f661d, type: 3}
   - key: ForestSound
     clip: {fileID: 8300000, guid: 2f5d8b68db7fc9b4a864769fd1f55fba, type: 3}
+  - key: DungeonSound
+    clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}
+  - key: SnowLandSound
+    clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}

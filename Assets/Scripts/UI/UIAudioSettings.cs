@@ -8,17 +8,18 @@ public class UIAudioSettings : MonoBehaviour
     [Header("UI Sliders")]
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    private SaveData saveData;
 
     private void Start()
     {
-        float musicVol = PlayerPrefs.GetFloat("MusicVolume", 0.8f);
-        float sfxVol = PlayerPrefs.GetFloat("SfxVolume", 0.8f);
+        saveData = SaveManager.Load();
 
-        musicSlider.value = musicVol;
-        sfxSlider.value = sfxVol;
+       
+        musicSlider.value = saveData.musicVolume;
+        sfxSlider.value = saveData.sfxVolume;
 
-        ApplyVolume("Music", musicVol);
-        ApplyVolume("Sfx", sfxVol);
+        ApplyVolume("Music", saveData.musicVolume);
+        ApplyVolume("Sfx", saveData.sfxVolume);
 
         musicSlider.onValueChanged.AddListener(v => ApplyVolume("Music", v));
         sfxSlider.onValueChanged.AddListener(v => ApplyVolume("Sfx", v));
@@ -30,12 +31,14 @@ public class UIAudioSettings : MonoBehaviour
         if (type == "Music")
         {
             AudioManager.Instance.SetMusicVolume(value);
+            saveData.musicVolume = value;
         }
         else if (type == "Sfx")
         {
             AudioManager.Instance.SetSfxVolume(value);
+            saveData.sfxVolume = value;
         }
 
-        PlayerPrefs.SetFloat($"{type}Volume", value);
+        SaveManager.Save(saveData);
     }
 }

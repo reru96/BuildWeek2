@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1306801df63313b4da3c9cbe6b970b78, type: 3}
+  m_Name: CreditsChunk
+  m_EditorClassIdentifier: 
+  chunkPrefab: {fileID: 8092693719306008355, guid: 5c8b312023aa30942aff1b4d7034e127,
+    type: 3}
+  overridBeckGround: {fileID: 0}
+  lengthInTiles: 5
+  weight: 1

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LifeController : MonoBehaviour
@@ -18,8 +19,13 @@ public class LifeController : MonoBehaviour
     [Header("Death Settings")]
     [SerializeField] private DeathAction death = DeathAction.Destroy;
 
-    public enum DeathAction { None, Destroy, Disable, Die, SceneReload }
+    public UnityEvent OnDeath;
 
+    public enum DeathAction { None, Destroy, Disable, Die, SceneReload, Animation }
+
+    private AnimationState currentState = AnimationState.RUN;
+
+    public AnimationState GetState() => currentState;
     public int GetMaxHp() => maxHp;
     public int GetHp() => currentHp;
     public int GetShield() => currentShield;
@@ -60,10 +66,11 @@ public class LifeController : MonoBehaviour
         currentHp = Mathf.Clamp(currentHp + amount, 0, maxHp);
     }
 
-    public void RestoreShield(int amount)
+    public void AddShield(int amount)
     {
         if (amount <= 0) return;
-        currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+        currentShield += amount;
+        Debug.Log("Scudi attivi:" + currentShield);
     }
 
  
@@ -74,16 +81,20 @@ public class LifeController : MonoBehaviour
 
         if (oldHp > 0 && currentHp == 0)
         {
+            OnDeath?.Invoke();
             HandleDeath();
         }
     }
 
-    private void HandleDeath()
+    public void HandleDeath()
     {
         switch (death)
         {
             case DeathAction.None:
                 break;
+            case DeathAction.Animation:
+                currentState = AnimationState.DEATH; 
+                break; 
             case DeathAction.Destroy:
                 Destroy(gameObject);
                 break;

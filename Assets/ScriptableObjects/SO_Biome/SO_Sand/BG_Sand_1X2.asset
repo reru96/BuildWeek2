@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094619dad0a17f64687d041cb4785f87, type: 3}
   m_Name: BG_Sand_1X2
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1837314870630039863, guid: 12de59c14e6ad834ba9713b7932fd14f, type: 3}
+  prefab: {fileID: 1837314870630039863, guid: ec93b2fa0489eb745b66d6ea7c75848e, type: 3}
   weight: 1
   lengthInTiles: 1
   side: 2
+  worldLength: 1

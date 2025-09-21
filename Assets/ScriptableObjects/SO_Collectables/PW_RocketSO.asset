@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3298a6b3032e274c873248a9741243a, type: 3}
+  m_Name: PW_RocketSO
+  m_EditorClassIdentifier: 
+  namePowerUp: Rocket
+  prefab: {fileID: 31323323000969317, guid: 59b0ade67989c9e4aaaff6d27d44d654, type: 3}
+  weight: 1
+  cost: 1
+  minDifficultyLevel: 0
+  maxDifficultyLevel: 0
+  icon: {fileID: 21300000, guid: 4abb46f09605f7e4b97e5dd70d7e8136, type: 3}
+  maxDifficult: 0
+  minDifficult: 0
+  shopped: 0
+  fly: {x: 0, y: 5, z: 0}
+  timer: 5

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d30123ebf63ca439fac94f294ea1c2, type: 3}
+  m_Name: PW_ForceFieldSO
+  m_EditorClassIdentifier: 
+  namePowerUp: ForceField
+  prefab: {fileID: 1840070034121605207, guid: 3bf5f8303ef954c4989d706e7aa85ea2, type: 3}
+  weight: 1
+  cost: 1
+  minDifficultyLevel: 0
+  maxDifficultyLevel: 0
+  icon: {fileID: 21300000, guid: e3df1844d77e43b4f9c19b007bc2047d, type: 3}
+  maxDifficult: 0
+  minDifficult: 0
+  shopped: 0
+  radius: 5
+  forceField: {fileID: 1799019779132808453, guid: 1e540d660e5117e4b8c65668bb0b9a8d,
+    type: 3}

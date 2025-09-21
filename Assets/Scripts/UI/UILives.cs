@@ -1,41 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UILives : MonoBehaviour
 {
-    [SerializeField] private RespawnManager respawnManager;
-    [SerializeField] private GameObject lifeIconPrefab;
+    [SerializeField] private GameObject shieldSpriteIcon;
+    [SerializeField] private TextMeshProUGUI livesNumber;
+    [SerializeField] private Transform shieldParent;
+
+    private LifeController lifeController;
     private List<GameObject> icons = new List<GameObject>();
 
     private void Awake()
     {
-        respawnManager = FindAnyObjectByType<RespawnManager>();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            lifeController = player.GetComponent<LifeController>();
+
     }
+
     void Start()
     {
-        InitIcons();
         UpdateLives();
     }
 
-    private void InitIcons()
+    private void Update()
     {
-      
-        for (int i = 0; i < respawnManager.MaxTry; i++)
-        {
-            GameObject newIcon = Instantiate(lifeIconPrefab, transform);
-            icons.Add(newIcon);
-        }
+        UpdateLives();
     }
 
     public void UpdateLives()
     {
-        if (respawnManager == null)
-            respawnManager = RespawnManager.Instance;
 
-        for (int i = 0; i < icons.Count; i++)
+        int hp = lifeController.GetHp();
+        int shieldHp = lifeController.GetShield();
+        livesNumber.text = hp.ToString();
+
+        foreach (var icon in icons)
+            Destroy(icon);
+
+        icons.Clear();
+
+        for (int i = 0; i < shieldHp; i++)
         {
-            icons[i].SetActive(i < respawnManager.LeftTry);
+            GameObject newIcon = Instantiate(shieldSpriteIcon, shieldParent);
+            newIcon.SetActive(true);
+            icons.Add(newIcon);
         }
+
     }
 }

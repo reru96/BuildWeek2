@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,16 +13,17 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private string sfxVolumeParam = "SfxVolume";
 
     [Header("Audio Sources")]
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
+    [SerializeField]private AudioSource musicSource;
+    [SerializeField]private AudioSource sfxSource;
 
     [Header("Audio Library")]
     [SerializeField] private AudioLibrary audioLibrary;
     [SerializeField] private SceneMusicLibrary sceneMusicLibrary;
-    
+    [SerializeField] private BiomeMusicLibrary biomeMusicLibrary;
 
     private Dictionary<string, AudioClip> audioDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, string> sceneMusicDict = new Dictionary<string, string>();
+    private Dictionary<string, string> biomeDict = new Dictionary<string, string>();
 
     protected override bool ShouldBeDestroyOnLoad() => false;
 
@@ -61,6 +63,15 @@ public class AudioManager : Singleton<AudioManager>
                     sceneMusicDict.Add(entry.sceneName, entry.musicKey);
             }
         }
+        
+        if (biomeMusicLibrary!= null)
+        {
+            foreach (var entry in biomeMusicLibrary.biomeMusics)
+            {
+                if (!biomeDict.ContainsKey(entry.biomeName))
+                    biomeDict.Add(entry.biomeName, entry.musicKey);
+            }
+        }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -68,6 +79,12 @@ public class AudioManager : Singleton<AudioManager>
 
     private void Start()
     {
+        SaveData saveData = SaveManager.Load();
+
+        SetMusicVolume(saveData.musicVolume);
+        SetSfxVolume(saveData.sfxVolume);
+
+
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
     protected override void OnDestroy()
@@ -119,5 +136,16 @@ public class AudioManager : Singleton<AudioManager>
     public void SetSfxVolume(float volume)
     {
         audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
+    }
+
+    public void PlayMusicLater(string key, float delay, float volume = 1f)
+    {
+        StartCoroutine(PlayMusicCoroutine(key, delay, volume));
+    }
+
+    private IEnumerator PlayMusicCoroutine(string key, float delay, float volume)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayMusic(key, volume);
     }
 }

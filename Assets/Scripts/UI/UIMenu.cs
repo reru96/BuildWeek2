@@ -6,29 +6,79 @@ using UnityEngine.UI;
 
 public class UIMenu : MonoBehaviour
 {
+    [Header("UI Menu")]
     [SerializeField] private string startScene;
-    public GameObject menu;
+    [SerializeField] private UIScoreManager uiScoreManager;
+    [SerializeField] private GameObject leaderboardPanel;
+    [SerializeField] private GameObject shopMenu;
+    
+
+    [Header("Riferimenti Player")]
+    [SerializeField] private LifeController playerLife;
+
+    private bool isGameOver = false;
+
     void Start()
     {
-        menu.SetActive(false);
+        shopMenu.SetActive(false);
+        leaderboardPanel.SetActive(false);
+        playerLife.OnDeath.AddListener(OnGameOver);
 
+    }
+
+    private void OnGameOver()
+    {
+        if (isGameOver) return;
+        isGameOver = true;
+
+
+        Time.timeScale = 0f;
+
+        uiScoreManager.SaveAndUpdateLeaderboard();
+
+
+        if (leaderboardPanel != null)
+            leaderboardPanel.SetActive(true);
+    }
+
+
+    public void RestartScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToShop()
+    {
+        Time.timeScale = 0f;
+        shopMenu.SetActive(true);
+        leaderboardPanel.SetActive(false);
+        
+    }
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(startScene);
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        menu.SetActive(true);
+        shopMenu.SetActive(true);
     }
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
-        menu.SetActive(false);
-    }
-
-    public void LoadMainMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(startScene); 
+        if(isGameOver)
+        {
+            Time.timeScale = 0f;
+            leaderboardPanel.SetActive(true);
+        }
+        else
+        { 
+            Time.timeScale = 1f;
+        }
+            
+        shopMenu.SetActive(false);
     }
    
 }

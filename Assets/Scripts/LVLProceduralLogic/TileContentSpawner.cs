@@ -7,16 +7,20 @@ public class TileContentSpawner : MonoBehaviour
     private GameObject _lastSelectedEnemy;
     private GameObject _lastSelectedObstacle;
     private GameObject _lastSelectedPowerUp;
+    private GameObject _lastSelectedCoin;
 
     public GameObject GetLastSelectedEnemyPrefab() => _lastSelectedEnemy;
     public GameObject GetLastSelectedObstaclePrefab() => _lastSelectedObstacle;
     public GameObject GetLastSelectedPowerUpPrefab() => _lastSelectedPowerUp;
+    public GameObject GetLastSelectedCoinPrefab() => _lastSelectedCoin;
 
-    public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnEnemy(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        if (biome.enemies == null || biome.enemies.Count == 0) return null;
+        var filtered = biome.enemies
+            .Where(e => e.minDifficultyLevel <= difficulty && difficulty <= e.maxDifficultyLevel)
+            .ToList();
 
-        var enemy = GetWeightedRandom(biome.enemies);
+        var enemy = GetWeightedRandom(filtered);
         _lastSelectedEnemy = enemy?.prefab;
 
         return enemy != null
@@ -24,11 +28,13 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    public GameObject SpawnObstacle(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnObstacle(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        if (biome.obstacles == null || biome.obstacles.Count == 0) return null;
+        var filtered = biome.obstacles
+            .Where(e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
+            .ToList();
 
-        var obstacle = GetWeightedRandom(biome.obstacles);
+        var obstacle = GetWeightedRandom(filtered);
         _lastSelectedObstacle = obstacle?.prefab;
 
         return obstacle != null
@@ -36,11 +42,13 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent)
+    public GameObject SpawnPowerUp(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        if (biome.collectables == null || biome.collectables.Count == 0) return null;
+        var filtered = biome.collectables
+            .Where(e => e.minDifficult <= difficulty && difficulty <= e.maxDifficult)
+            .ToList();
 
-        var powerup = GetWeightedRandom(biome.collectables);
+        var powerup = GetWeightedRandom(filtered);
         _lastSelectedPowerUp = powerup?.prefab;
 
         return powerup != null
@@ -48,9 +56,34 @@ public class TileContentSpawner : MonoBehaviour
             : null;
     }
 
-    private T GetWeightedRandom<T>(List<T> items) where T : ScriptableObject
+    public GameObject SpawnCoin(BiomeData biome, Vector3 position, Transform parent, int difficulty)
     {
-        var weighted = items
+      
+        var filtered = biome.coins
+            .Where(c => c.minDifficult <= difficulty && difficulty <= c.maxDifficult) 
+            .ToList();
+
+        if (filtered.Count == 0) return null;
+
+     
+        CoinData coinData = filtered[Random.Range(0, filtered.Count)];
+        _lastSelectedCoin = coinData.prefab;
+
+
+        GameObject coin = PoolManager.Instance.Spawn(coinData.prefab, position + Vector3.up * 1f, Quaternion.identity, parent);
+
+       
+        CoinPickUp pickup = coin.GetComponent<CoinPickUp>();
+        if (pickup != null)
+            pickup.coinData = coinData;
+
+        return coin;
+    }
+
+
+    private T GetWeightedRandom<T>(List<T> spawnables) where T : ScriptableObject
+    {
+        var weighted = spawnables
             .Select(x => new { Item = x, Weight = GetWeight(x) })
             .ToList();
 

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9313445089efb408229f43424fa553, type: 3}
+  m_Name: SO_BiomeDungeon
+  m_EditorClassIdentifier: 
+  biomeType: 0
+  aviabletileDatas:
+  - {fileID: 11400000, guid: 2185971dcc7d3a04b9f85c2476235464, type: 2}
+  - {fileID: 11400000, guid: 3c7f75fdeaa01cb43b6706502fd2e549, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: e8bb53741084b3e488858f089eb6d648, type: 2}
+  - {fileID: 11400000, guid: 5c2f055633d8d1f40ae7049705c52138, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: 6903f39f3732c91448527c1f863671ba, type: 2}
+  collectables:
+  - {fileID: 11400000, guid: 433e206c2cf19304f9b241b401491db2, type: 2}
+  - {fileID: 11400000, guid: 2b3a89e747953d54d8fbb0e440fbdb22, type: 2}
+  coins:
+  - {fileID: 11400000, guid: e1c54b087c3e3df46849c16926ae5500, type: 2}
+  backgroundTiles:
+  - {fileID: 11400000, guid: c9c27a15dab0a8744a81d82c93182f99, type: 2}
+  transitionStart: {fileID: 11400000, guid: abe40b013a17fec4b99c2c6092156cb2, type: 2}
+  transitionEnd: {fileID: 11400000, guid: 011450236da764f48b396cccb9e687bb, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 5ffe771db4b6b1a4babbbb27cd18facc, type: 2}
+  biomeMusic: DungeonSound
+  fogColor: {r: 0.13723731, g: 0.96981126, b: 0.16813599, a: 0}
+  ambientLightColor: {r: 0.73294836, g: 0.2688679, b: 1, a: 0}
+  skyboxMaterial: {fileID: 2100000, guid: 5600ce4a61a14d841bdf16359210a5b8, type: 2}

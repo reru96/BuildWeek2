@@ -18,6 +18,11 @@ public class LVLBuilder : MonoBehaviour
     [SerializeField] private int safeStartTiles = 10; //Sono le tile iniziali senza buchi
     [SerializeField] private float generateDistance = 100f;
     [SerializeField] private float despawnDistance = 50f;
+    [SerializeField] private float delayMusic = 5f;
+
+    [Header("Fog Settings")]
+    [SerializeField] float _fogStartOffset = 10;
+    [SerializeField] float _fogEndOffset = 100;
 
     [Header("Biome")]
     [SerializeField] private List<BiomeData> availableBiomes;
@@ -44,8 +49,15 @@ public class LVLBuilder : MonoBehaviour
     private Queue<TileSegment> activeSegments = new(); // Coda per gestire i segmenti attivi
     private float lastGeneratedZ = 0f;  // Tiene traccia della posizione Z dell'ultima tile generata
     private int segmentCounter = 0;   // Conta il numero di segmenti generati
-    private bool skipNextBGSpawn = false;
-    private bool suppressNextBG = false;
+    private int difficultyLevel = 0;
+
+    private int skipNextBGSpawnFor = 0;
+
+    //private bool skipNextBGSpawn = false;
+    //private bool suppressNextBG = false;
+
+    public int NumberOfLanes => numberOfLanes;
+    public float LaneWidth => laneWidth;
 
 
     void Start() => Initialize();
@@ -57,6 +69,10 @@ public class LVLBuilder : MonoBehaviour
         GenerateAhead();
         CleanupBehind();
         CheckBiomeChange();
+
+        //Test metodo nebbia
+
+        UpdateFogDistance();
     }
 
     void Initialize() // Inizializza il generatore di livelli
@@ -74,6 +90,7 @@ public class LVLBuilder : MonoBehaviour
             laneWidth = laneWidth
         };
 
+        backgroundBuilder?.Initialize(levelParams);
 
         foreach (var biome in availableBiomes) /// Prewarm delle pool per tutti i prefab usati nei biomi DA SISTEMARE E INTEGRARE CON IL CAMBIAMENTO DINAMICO DEI BIOMI
         {
@@ -89,10 +106,14 @@ public class LVLBuilder : MonoBehaviour
             foreach (var collectable in biome.collectables)
                 PoolManager.Instance.Prewarm(collectable.prefab, 5, transform);
 
+            foreach (var coin in biome.coins)
+                PoolManager.Instance.Prewarm(coin.prefab, 5, transform);
+
         }
 
 
         currentBiome = availableBiomes[0];
+        AudioManager.Instance.PlayMusic(currentBiome.biomeMusic);
         nextBiomeChangeZ = biomeChangeDistance;
 
         // Faccio in modo che le prime tile siano sempre sicure (bisogna pulirle dai nemici e ostacoli dopo)
@@ -104,14 +125,18 @@ public class LVLBuilder : MonoBehaviour
         for (int i = 0; i < safeStartTiles; i++)
             GenerateTileSegment(i * tileLength);
 
-        backgroundBuilder?.Initialize(levelParams);
 
-        ApplyBiomeEnvironment();
+
+
     }
 
     void GenerateAhead() // genera nuove tile davanti al giocatore o il chunk se necessario
     {
-        while (lastGeneratedZ < player.position.z + generateDistance) //se la z dell'ultima tile generata è minore della z del giocatore + distanza di generazione
+        float playerZ = player.position.z;
+        float targetZ = playerZ + generateDistance;
+
+        int safeguard = 0;
+        while (lastGeneratedZ < player.position.z + generateDistance && safeguard < 100)
         {
             if (segmentCounter > 0 && segmentCounter % tilesPerChunk == 0) // ogni tot segmenti genero un chunk
             {
@@ -122,6 +147,11 @@ public class LVLBuilder : MonoBehaviour
                 GenerateTileSegment(lastGeneratedZ);
             }
 
+            safeguard++; // sempre, così il while non rischia di loopare se qualcosa non incrementa lastGeneratedZ
+        }
+        if (safeguard >= 100)
+        {
+            Debug.LogWarning("[LVLBuilder] Safeguard tripped in GenerateAhead (100 iterations). Check generation logic.");
         }
 
 
@@ -167,62 +197,77 @@ public class LVLBuilder : MonoBehaviour
 
         if (otherBiomes.Count == 0) return;
 
-        BiomeData oldBiome = currentBiome; // quello che stiamo lasciando
-        currentBiome = otherBiomes[Random.Range(0, otherBiomes.Count)];
-        nextBiomeChangeZ += biomeChangeDistance;
+        BiomeData oldBiome = currentBiome;
+        BiomeData newBiome = otherBiomes[Random.Range(0, otherBiomes.Count)];
 
-        ApplyBiomeEnvironment();
+        // CALCOLA LE POSIZIONI DELLE TRANSIZIONI IN ANTICIPO (posizioni di INIZIO)
+        float exitTransitionZ = lastGeneratedZ;      // inizio exit
+        float exitLength = (oldBiome.transitionEnd && oldBiome.transitionEnd.worldLength > 0)
+            ? oldBiome.transitionEnd.worldLength : tileLength;
 
+        float entryTransitionZ = exitTransitionZ + (oldBiome.transitionEnd ? exitLength : 0f); // inizio entry
+        float entryLength = 0f;
 
-        // Exit del vecchio bioma → ultima tile
+        // Spawna la transizione di uscita PRIMA del cambio bioma
         if (oldBiome.transitionEnd != null)
         {
-            Vector3 exitPos = new Vector3(0, 0, lastGeneratedZ - tileLength);
-            backgroundBuilder?.SpawnBiomeTransition(oldBiome.transitionEnd, exitPos);
-
-            suppressNextBG = true;
+            backgroundBuilder?.SpawnBiomeTransition(oldBiome.transitionEnd, new Vector3(0, 0, exitTransitionZ));
         }
 
-        // Entry del nuovo bioma → prima tile
+        // Cambia bioma
+        currentBiome = newBiome;
+        nextBiomeChangeZ += biomeChangeDistance;
+        AudioManager.Instance.PlayMusicLater(newBiome.biomeMusic,delayMusic);
+        difficultyLevel++;
+
+        // gestione cambio skybox
+        if (currentBiome.skyboxMaterial != null)
+        {
+            RenderSettings.skybox = currentBiome.skyboxMaterial;
+            DynamicGI.UpdateEnvironment();
+        }
+
+        // Spawna la transizione di entrata del NUOVO bioma
         if (currentBiome.transitionStart != null)
         {
-            Vector3 entryPos = new Vector3(0, 0, lastGeneratedZ);
-            backgroundBuilder?.SpawnBiomeTransition(currentBiome.transitionStart, entryPos);
+            entryLength = (currentBiome.transitionStart.worldLength > 0)
+                ? currentBiome.transitionStart.worldLength : tileLength;
+
+            backgroundBuilder?.SpawnBiomeTransition(currentBiome.transitionStart, new Vector3(0, 0, entryTransitionZ));
         }
 
-        skipNextBGSpawn = true;
-        backgroundBuilder?.ResetBackgroundZ(lastGeneratedZ);
+        // Zona totale occupata dalle transizioni [exitStart, transitionsEnd)
+        float transitionsEndZ = entryTransitionZ + entryLength;
 
-        if (showDebugInfo) PrintDebugInfo();
+   
+        skipNextBGSpawnFor = Mathf.Max(1, Mathf.CeilToInt((transitionsEndZ - exitTransitionZ) / tileLength));
+
+        // IMPORTANTE: NON chiamare ResetBackgroundZ qui!
+        // Le SpawnBiomeTransition hanno già avanzato _lastBackgroundZ alla fine della loro mesh.
+
+        if (showDebugInfo)
+        {
+            Debug.Log($"[LVLBuilder] Cambio bioma da {oldBiome.biomeType} a {currentBiome.biomeType}");
+            Debug.Log($"[LVLBuilder] Exit Z: {exitTransitionZ} (len {exitLength}), Entry Z: {entryTransitionZ} (len {entryLength}), End Z: {transitionsEndZ}");
+            Debug.Log($"[LVLBuilder] Saltando {skipNextBGSpawnFor} tile di background");
+            PrintDebugInfo();
+        }
     }
 
     private bool IsBiomeBoundaryTile(float zPos)
     {
-        // Prima tile del bioma
-        if (Mathf.Approximately(zPos, nextBiomeChangeZ - biomeChangeDistance))
+        // Controlla se siamo vicini a una transizione di bioma
+        float distanceToNextBiome = nextBiomeChangeZ - zPos;
+
+        // Prima tile del nuovo bioma (appena dopo la transizione)
+        if (distanceToNextBiome <= tileLength && distanceToNextBiome > 0)
             return true;
 
-        // Ultima tile del bioma (quella prima dell'exit)
-        if (Mathf.Approximately(zPos, nextBiomeChangeZ - tileLength))
+        // Ultime tile prima della transizione
+        if (distanceToNextBiome <= tileLength * 2 && distanceToNextBiome > tileLength)
             return true;
 
         return false;
-    }
-
-    void ApplyBiomeEnvironment()
-    {
-        RenderSettings.fogColor = currentBiome.fogColor;
-        RenderSettings.ambientLight = currentBiome.ambientLightColor;
-
-        if (!currentBiome.biomeMusic) return;
-
-        var audio = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
-        if (audio.clip != currentBiome.biomeMusic)
-        {
-            audio.clip = currentBiome.biomeMusic;
-            audio.loop = true;
-            audio.Play();
-        }
     }
 
     void ApplyBiomeMaterial(GameObject target)
@@ -236,22 +281,30 @@ public class LVLBuilder : MonoBehaviour
         }
     }
 
+    //NEBBIA
+
+    void UpdateFogDistance()
+    {
+
+        if (!Camera.main) return; //Check della camera
+
+        float camZ = Camera.main.transform.position.z; // gestione degli offset in relazione alla camera
+
+        RenderSettings.fogStartDistance = camZ + _fogStartOffset;
+        RenderSettings.fogEndDistance = camZ + _fogEndOffset;
+
+    }
+
     //GETIONE CHUNK 
     void GenerateChunk(float zPos)
     {
         ChunkData chunk = SelectWeightedChunk(availableChunks);
 
+        // Se il chunk ha un BG dedicato, spawnalo come transizione
         if (chunk.overridBeckGround != null)
         {
-            GameObject bg = PoolManager.Instance.Spawn(
-                chunk.overridBeckGround.prefab,
-                new Vector3(0, 0, zPos),
-                Quaternion.identity,
-                transform
-            );
-
+            backgroundBuilder?.SpawnBiomeTransition(chunk.overridBeckGround, new Vector3(0, 0, zPos));
         }
-
 
         if (chunk == null || chunk.chunkPrefab == null)
         {
@@ -264,15 +317,20 @@ public class LVLBuilder : MonoBehaviour
 
         ApplyBiomeMaterial(chunkObj);
 
-        activeSegments.Enqueue(new TileSegment(zPos, 1) // TileSegment è una struct che contiene le info di ogni segmento generato in questo caso il chunk è considerato come un singolo segmento con lunghezza 1
+        activeSegments.Enqueue(new TileSegment(zPos, 1)
         {
-            FloorObject = chunkObj, // l'oggetto pavimento del segmento è il chunk stesso
-            Biome = currentBiome    // assegno il bioma corrente al segmento
+            FloorObject = chunkObj,
+            Biome = currentBiome
         });
 
-        lastGeneratedZ += tileLength * chunk.lengthInTiles; // Aggiorno la posizione Z dell'ultima tile generata in base alla lunghezza del chunk così da saltare le tile che il chunk occupa
-        segmentCounter++;// Incremento il contatore dei segmenti generati
+        // Avanza di N tile
+        lastGeneratedZ += tileLength * chunk.lengthInTiles;
+        segmentCounter++;
+
+        // riallinea anche il cursore del background
+        backgroundBuilder?.SyncBackgroundTo(lastGeneratedZ);
     }
+
 
     ChunkData SelectWeightedChunk(List<ChunkData> chunks) // E' un metodo per gestire la probabilità di spawnare i chunk in base a un peso assegnato a ciascun chunk
     {
@@ -335,7 +393,6 @@ public class LVLBuilder : MonoBehaviour
 
         bool isBoundary = IsBiomeBoundaryTile(zPosition);
 
-
         List<int> viableLanes = new();
         List<int> safeLanesForContent = new();
 
@@ -364,7 +421,7 @@ public class LVLBuilder : MonoBehaviour
         int selectedLane = ChooseLaneAccordingToRules(viableLanes);
 
 
-
+        bool isSafeTile = segmentCounter < safeStartTiles;
         bool hasSpawnedContentThisRow = false;
 
         for (int lane = 0; lane < numberOfLanes; lane++)
@@ -390,7 +447,7 @@ public class LVLBuilder : MonoBehaviour
                 ApplyBiomeMaterial(tileObj);
                 segment.LaneObjects[lane] = tileObj;
 
-                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane))
+                if (!isBoundary && !hasSpawnedContentThisRow && safeLanesForContent.Contains(lane) && !isSafeTile)
                 {
                     GameObject content = null;
                     GameObject contentPrefab = null;
@@ -399,17 +456,17 @@ public class LVLBuilder : MonoBehaviour
 
                     if (rand < powerupChance)
                     {
-                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnPowerUp(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedPowerUpPrefab();
                     }
                     else if (rand < powerupChance + enemyChance)
                     {
-                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnEnemy(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedEnemyPrefab();
                     }
                     else if (rand < powerupChance + enemyChance + obstacleChance)
                     {
-                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform);
+                        content = contentSpawner.SpawnObstacle(currentBiome, lanePos, transform, difficultyLevel);
                         contentPrefab = contentSpawner.GetLastSelectedObstaclePrefab();
                     }
 
@@ -424,26 +481,48 @@ public class LVLBuilder : MonoBehaviour
             }
         }
 
-
-
-        if (!isBoundary && !skipNextBGSpawn) // controllo suppressNextBG
+        if (!isBoundary && !isSafeTile && currentBiome.coins.Count > 0)
         {
-            backgroundBuilder?.SpawnBackgroundAt(currentBiome, zPosition);
+            List<int> coinLanes = viableLanes.ToList();
+            int chosenLane = coinLanes[Random.Range(0, coinLanes.Count)];
+            SpawnCoinAtLane(segment, chosenLane, zPosition);
+        }
+
+        // Riempie il background fino alla nuova fine generata
+        if (!isBoundary && skipNextBGSpawnFor <= 0)
+        {
+            float targetZ = lastGeneratedZ + tileLength;
+            backgroundBuilder?.FillBackgroundUpTo(currentBiome, targetZ);
         }
         else
         {
-            if (skipNextBGSpawn) skipNextBGSpawn = false;  
-            if (suppressNextBG) suppressNextBG = false;     // resettiamo il flag
+            if (skipNextBGSpawnFor > 0)
+                skipNextBGSpawnFor--;
         }
+
         activeSegments.Enqueue(segment);
         lastGeneratedZ += tileLength;
         segmentCounter++;
     }
 
+    void SpawnCoinAtLane(TileSegment segment, int lane, float zPosition)
+    {
+        float x = -(numberOfLanes - 1) * laneWidth * 0.5f + lane * laneWidth;
+        Vector3 coinPos = new(x, 1f, zPosition + tileLength * 0.5f);
+
+        CoinData coinData = currentBiome.coins[Random.Range(0, currentBiome.coins.Count)];
+        if (coinData != null && coinData.prefab != null)
+        {
+            GameObject coin = PoolManager.Instance.Spawn(coinData.prefab, coinPos, Quaternion.identity, transform);
 
 
+            CoinPickUp pickup = coin.GetComponent<CoinPickUp>();
+            if (pickup != null)
+                pickup.coinData = coinData;
 
-
+            segment.SpawnedContents.Add((coin, coinData.prefab));
+        }
+    }
 
     //DEBBUG PURPOSES ONLY
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa340cd7395dc94cae7df3d23356b89, type: 3}
+  m_Name: Audio Library
+  m_EditorClassIdentifier: 
+  clips:
+  - key: StartMenu
+    clip: {fileID: 8300000, guid: 430dd2ce5a87c1b4bafbe4464b898da7, type: 3}
+  - key: DesertSound
+    clip: {fileID: 8300000, guid: b3664c64db6f99545abc4c86db2f661d, type: 3}
+  - key: ForestSound
+    clip: {fileID: 8300000, guid: 2f5d8b68db7fc9b4a864769fd1f55fba, type: 3}
+  - key: DungeonSound
+    clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}
+  - key: SnowLandSound
+    clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}
+  - key: Credits
+    clip: {fileID: 8300000, guid: e5119d0d607c6e1479bbca386abd18ea, type: 3}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094619dad0a17f64687d041cb4785f87, type: 3}
+  m_Name: BGDungeonEnter
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7210511288721118728, guid: 409a4561477c9624db30d7c72d24e592, type: 3}
+  weight: 1
+  lengthInTiles: 1
+  side: 2
+  worldLength: 1

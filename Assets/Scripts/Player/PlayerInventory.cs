@@ -1,46 +1,34 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [Header("UI Inventario")]
-    public Transform inventoryContainer;    
-    public GameObject inventorySlotPrefab;     
-
     private List<CollectableData> collectedItems = new List<CollectableData>();
+
+  
+    public event Action OnInventoryChanged;
 
     public void AddItem(CollectableData item)
     {
-        if (item == null) return;
-
+        if (item == null || collectedItems.Contains(item)) return;
         collectedItems.Add(item);
-        Debug.Log("Aggiunto all'inventario: " + item.namePowerUp);
-
-      
-        if (inventorySlotPrefab != null && inventoryContainer != null)
-        {
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryContainer);
-            slot.name = item.namePowerUp;
-
-            Image icon = slot.GetComponent<Image>();
-            if (icon != null && item.icon != null)
-                icon.sprite = item.icon;
-
-           
-            Button btn = slot.GetComponent<Button>();
-            if (btn != null)
-            {
-                btn.onClick.AddListener(() => OnSlotClicked(item));
-            }
-        }
+        OnInventoryChanged?.Invoke();
     }
 
-    private void OnSlotClicked(CollectableData item)
+    public void RemoveItem(CollectableData item)
     {
-        Debug.Log("Slot cliccato: " + item.namePowerUp);
-        
+        if (item == null) return;
+        collectedItems.Remove(item);
+        OnInventoryChanged?.Invoke();
     }
 
-    public List<CollectableData> GetInventory() => collectedItems;
+    public void ClearCollectables()
+    {
+        collectedItems.Clear();
+        OnInventoryChanged?.Invoke();
+    }
+
+    public List<CollectableData> GetCollectedItems() => collectedItems;
 }

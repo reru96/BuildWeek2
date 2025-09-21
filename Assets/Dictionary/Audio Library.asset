@@ -23,3 +23,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}
   - key: SnowLandSound
     clip: {fileID: 8300000, guid: d84620dbcfc64ef45b94ac724c9971e7, type: 3}
+  - key: Credits
+    clip: {fileID: 8300000, guid: e5119d0d607c6e1479bbca386abd18ea, type: 3}

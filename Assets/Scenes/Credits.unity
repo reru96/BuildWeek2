@@ -330,12 +330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -359,7 +359,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -375,7 +375,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2038046538}
+  - {fileID: 1280196858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -393,6 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1039643285}
   - component: {fileID: 1039643284}
+  - component: {fileID: 1039643286}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -477,6 +480,291 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1039643286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039643283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!1 &1280196857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1280196858}
+  - component: {fileID: 1280196860}
+  - component: {fileID: 1280196859}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1280196858
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280196857}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 943136867}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 40.511, y: 0.00051594}
+  m_SizeDelta: {x: 860.463, y: 913.12}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1280196859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280196857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Le Bizzarre Avventure di Giorgio\u2122\n\nA Collaborative Experience by
+    Rumieri, Lommano, Born\xE8 Fiorenza & Cirone\u2122\n\nPRINCIPAL CREDITS\n\nSorcerer
+    Supreme of Branch-Multiverse of Mardness- Renato Rumieri\nSupreme Vision \u2014
+    Edoardo Cirone\nGrand Architect of Pixels \u2014 Rocco Born\xE8 Fiorenza\nEmpress
+    of Design \u2014 Samanta Lommano\nDirector of Multiversal Strategy \u2014 Renato
+    Rumieri\nKeeper of the Infinite Lore \u2014 Samanta Lommano\nExecutive of Executives
+    \u2014 Rocco Born\xE8 Fiorenza\nComposer of Eternal Silenzi\u2122 \u2014 Edoardo
+    Cirone\nChief of Unnecessary Complexity \u2014 Renato Rumieri\n\nRUMIERI INDUSTRIES\xAE
+    \u2013 Roma HQ\n\nCore Development & Pasta Engineering\n\nGame Direction \u2014
+    Renato Rumieri\n\nLevel Architecture \u2014 Renato Rumieri, Edoardo Cirone\n\nSystem
+    Engineering \u2014 Renato Rumieri\n\nBug Negotiation \u2014 Renato Rumieri\n\nKeeper
+    of Carbonara Balancing \u2014 Renato Rumieri\n\nLOMMANO CREATIVE LAB\u2122 \u2013
+    Kyoto Branch\n\nArt & Surreal User Interfaces\n\nArt Direction \u2014 Samanta
+    Lommano\n\nConceptual Character Whispering \u2014 Samanta Lommano\n\nNarrative
+    Design \u2014 Samanta Lommano\n\nKeeper of Fonts Nobody Can Read \u2014 Samanta
+    Lommano\n\nGoddess of Moodboards \u2014 Samanta Lommano\n\nChief Procrastination
+    Officer \u2014 Samanta Lommano\n\nFIORENZA VFX & RENDERING\u2122 \u2013 Buenos
+    Aires Node\n\nVisual Effects, Shadows & Excessive Bloom\n\nLead VFX Artist \u2014
+    Rocco Born\xE8 Fiorenza\n\nCinematic Illusionist \u2014 Rocco Born\xE8 Fiorenza\n\nParticle
+    Priest \u2014 Rocco Born\xE8 Fiorenza\n\nGlobal Shadow Wrangler \u2014 Rocco
+    Born\xE8 Fiorenza\n\nLicensed Bloom Overuser \u2014 Rocco Born\xE8 Fiorenza\n\nKeeper
+    of the Sacred Keyframes \u2014 Rocco Born\xE8 Fiorenza\n\nCIRONESOFT INTERACTIVE\u2122
+    \u2013 Reykjavik Outpost\n\nGame Systems & Polar Logistics\n\nLead Programmer
+    \u2014 Edoardo Cirone\n\nAI Behaviour Summoner \u2014 Edoardo Cirone\n\nPhysics
+    Distorter \u2014 Edoardo Cirone\n\nChief of Unreal Realities \u2014 Edoardo Cirone\n\nThermal
+    Penguin Consultant \u2014 Edoardo Cirone\n\nBug Whisperer (Night Shift) \u2014
+    Edoardo Cirone\n\nRUMIERI-LOMMANO-BORN\xC8 FIORENZA-CIRONE JOINT TASK FORCE\u2122
+    \u2013 Sinai Desert Mobile Base\n\nCamel Division & Thermal QA\n\nLead Camel
+    Tamer \u2014 Renato Rumieri\n\nAssistant Camel #1 \u2014 Samanta Lommano\n\nChief
+    of Saddles \u2014 Rocco Born\xE8 Fiorenza\n\nSand Shader Engineer \u2014 Edoardo
+    Cirone\n\nCarbon Cooling Intern \u2014 Renato Rumieri\n\nKeeper of Mirage Rendering
+    \u2014 Samanta Lommano\n\nORDER OF MINOR ARTS\u2122 \u2013 Castello Oscuro\n\nFolklore
+    & Medieval Gameplay Systems\n\nOfficial Innkeeper \u2014 Rocco Born\xE8 Fiorenza\n\nBrewmaster
+    of Ale +1 \u2014 Renato Rumieri\n\nJester Prime \u2014 Edoardo Cirone\n\nJester
+    #2 \u2014 Samanta Lommano\n\nGate Jumper \u2014 Rocco Born\xE8 Fiorenza\n\nBlacksmith
+    of Men\xF9 \u2014 Edoardo Cirone\n\nKeeper of Magical Patch Notes \u2014 Samanta
+    Lommano\n\nDEEP TIME DIVISION\u2122 \u2013 Polo Sud\n\nTemporal Management &
+    Quantum Lore\n\nHourglass Curator \u2014 Samanta Lommano\n\nTimeline Coordinator
+    Alt. #7 \u2014 Rocco Born\xE8 Fiorenza\n\nLunar Cycle Supervisor \u2014 Renato
+    Rumieri\n\nKeeper of Unreleased DLC \u2014 Edoardo Cirone\n\nMARKETING & APOCALYPSE
+    DIVISION\u2122 \u2013 Los Angeles\n\nGlobal Outreach & Endgame Hashtags\n\nEnd
+    of the World Influencer \u2014 Edoardo Cirone\n\nHashtag Forger \u2014 Samanta
+    Lommano\n\nTikTok VFX Alchemist \u2014 Rocco Born\xE8 Fiorenza\n\nCosplayer of
+    Self\u2122 \u2014 Renato Rumieri\n\nKeeper of Review Bombs \u2014 Edoardo Cirone\n\nQUALITY
+    ASSURANCE \u2013 Tallinn Node\n\nAlibi Systems & Sacred Bugs\n\nTest Commander
+    \u2014 Samanta Lommano\n\nBug Shaman \u2014 Renato Rumieri\n\nGlitch Curatore
+    \u2014 Rocco Born\xE8 Fiorenza\n\nChief Excuse Generator \u2014 Edoardo Cirone\n\nSPECIAL
+    THANKS\n\nEdoardo Cirone (con i baffi)\n\nRenato Rumieri (in incognito)\n\nSamanta
+    Lommano (che fingeva di non essere Samanta Lommano)\n\nRocco Born\xE8 Fiorenza
+    (pi\xF9 giovane, pi\xF9 saggio)\n\nEdoardo Cirone (spettatore)\n\nRenato Rumieri
+    (di un altro Multiverso)\n\nSamanta Lommano (in sonno profondo)\n\nRocco Born\xE8
+    Fiorenza (con mantello epico)\n\nPOWERED BY\n\nTHE QUADRUMVIRATE ENGINE\u2122\n(Raffreddato
+    manualmente a carbone & birra artigianale)\n\nAll rights reserved \xA9 The Great
+    Alliance\u2122\nDistribuito da CammelloPost\u2122 Global"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1280196860
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280196857}
+  m_CullTransparentMesh: 1
+--- !u!1 &2038046537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2038046538}
+  - component: {fileID: 2038046540}
+  - component: {fileID: 2038046539}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2038046538
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038046537}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 943136867}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.000061035}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2038046539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038046537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2038046540
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038046537}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

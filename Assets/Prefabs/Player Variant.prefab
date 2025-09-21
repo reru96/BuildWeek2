@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 491705779351607936, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2852081035538155408, guid: 4789b266ca3fe814d95089f7aefac56b,
         type: 3}
       propertyPath: death
@@ -118,7 +123,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5904630489587065824, guid: 4789b266ca3fe814d95089f7aefac56b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -130,6 +136,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1455753993191012899}
+    - targetCorrespondingSourceObject: {fileID: 8826089901745066630, guid: 4789b266ca3fe814d95089f7aefac56b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 416936136338040073}
   m_SourcePrefab: {fileID: 100100000, guid: 4789b266ca3fe814d95089f7aefac56b, type: 3}
 --- !u!1 &3206476172006955681 stripped
 GameObject:
@@ -178,3 +188,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &416936136338040073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206476172006955681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 10
+  laneChangeSpeed: 10
+  jumpForce: 8
+  gravity: -20
+  slideDuration: 0.7
+  delayRun: 0.2

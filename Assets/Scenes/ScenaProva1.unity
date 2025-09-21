@@ -595,9 +595,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ef8ed34f9a145846a672ea41d8952b0, type: 2}
   biomeChangeDistance: 100
   currentBiome: {fileID: 0}
-  obstacleChance: 0.9
-  enemyChance: 0
-  powerupChance: 0
+  obstacleChance: 0.5
+  enemyChance: 0.4
+  powerupChance: 0.1
   tilesPerChunk: 50
   availableChunks:
   - {fileID: 11400000, guid: f516331b826be9841adc1901a0de3af2, type: 2}
@@ -1965,6 +1965,11 @@ PrefabInstance:
       propertyPath: laneChangeSpeed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 776784260033489599, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: m_Name
@@ -2050,6 +2055,11 @@ PrefabInstance:
       propertyPath: life
       value: 
       objectReference: {fileID: 8700127229136854446}
+    - target: {fileID: 5823647840539611815, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 8700127229136854455}
     - target: {fileID: 8185155439889387447, guid: 0fe5edad52039bd4e8ce307e57bfd393,
         type: 3}
       propertyPath: death
@@ -2077,9 +2087,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1455753993191012899, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
+    - {fileID: 572613781600922567, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
+    - {fileID: 416936136338040073, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3206476172006955681, guid: 0fe5edad52039bd4e8ce307e57bfd393,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8700127229136854455}
   m_SourcePrefab: {fileID: 100100000, guid: 0fe5edad52039bd4e8ce307e57bfd393, type: 3}
 --- !u!1 &8700127229136854445 stripped
 GameObject:
@@ -2105,6 +2121,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8700127229136854444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8700127229136854455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700127229136854445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f66d33ef51eb5479b85dadcb9ab688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 10
+  laneChangeSpeed: 10
+  jumpForce: 8
+  gravity: -20
+  slideDuration: 0.7
+  delayRun: 0.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

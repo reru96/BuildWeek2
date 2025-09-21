@@ -15,5 +15,5 @@ MonoBehaviour:
   sceneMusics:
   - sceneName: StartMenu
     musicKey: StartMenu
-  - sceneName: Credits2
+  - sceneName: Credits
     musicKey: Credtis

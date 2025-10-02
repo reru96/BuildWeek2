@@ -7,17 +7,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShieldPowerUp", menuName = "ScriptableObjects/PowerUpData/Rocket")]
 public class RocketSO : CollectableData
 {
-    public Vector3 fly = new Vector3(0,2,0);
-    public float timer = 5;
+    public Vector3 fly = new Vector3(0, 10, 0);
+    public float duration = 5f; 
+    private float startTime;
 
     public override void Use(GameObject obj)
     {
         base.Use(obj);
 
-        if (timer > Time.time)
-        {
-            obj.transform.position += fly;
-        }
-
+        startTime = Time.time; 
+        obj.AddComponent<Rocket>().Init(fly, duration, startTime);
     }
 }

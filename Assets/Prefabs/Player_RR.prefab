@@ -151,7 +151,6 @@ GameObject:
   - component: {fileID: 7298274535606815416}
   - component: {fileID: 2852081035538155408}
   - component: {fileID: 3823573793860143598}
-  - component: {fileID: 5904630489587065824}
   - component: {fileID: 491705779351607936}
   m_Layer: 0
   m_Name: Player_RR
@@ -280,23 +279,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5904630489587065824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826089901745066630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5415d412cf0a0b448f894a846d38350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardSpeed: 10
-  laneChangeSpeed: 10
-  jumpForce: 8
-  gravity: -20
-  slideDuration: 0.7
 --- !u!114 &491705779351607936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,8 +291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98a11ec943eb6a46b1c697cf5e097bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 5904630489587065824}
+  playerController: {fileID: 0}
   animator: {fileID: 3823573793860143598}
+  life: {fileID: 0}
 --- !u!1001 &5766291892747886537
 PrefabInstance:
   m_ObjectHideFlags: 0
